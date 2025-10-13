@@ -18,7 +18,7 @@
             font-family: 'Cormorant Garamond', serif;
         }
         .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E3D7F1' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E3D7F1' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .fade-in {
             opacity: 0;
@@ -48,6 +48,14 @@
 
     <main class="max-w-4xl mx-auto p-5 md:p-10">
         
+        <!-- Picture gallery panel 1 (แนวนอน 1 รูป) -->
+        <section class="my-16 fade-in">
+            <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                <!-- GALLERY 1: แก้ไข URL รูปภาพตรงนี้ เช่น "gallery/horizontal_1.jpg" -->
+                <img src="https://placehold.co/1200x675/E3D7F1/FFFFFF?text=Gallery+Photo+1" alt="Kob and Ying Photo 1" class="w-full h-full object-cover">
+            </div>
+        </section>
+
         <!-- Greeting Message -->
         <section class="text-center my-16 fade-in">
             <p class="text-lg leading-relaxed mb-12">
@@ -55,55 +63,73 @@
                 เราจึงอยากเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในช่วงเวลาที่แสนพิเศษ<br>
                 เพื่อเฉลิมฉลองการเริ่มต้นชีวิตคู่ของเรา
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
-                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#FADADD]">
-                    <h3 class="font-display text-2xl mb-2 text-[#D98BA0]">From the Groom</h3>
+            <!-- Groom Message -->
+            <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
+                <div class="w-full md:w-1/2 rounded-lg overflow-hidden shadow-lg">
+                    <!-- รูปเจ้าบ่าว -->
+                    <img src="https://placehold.co/600x700/D1E8F7/FFFFFF?text=Groom" alt="Groom's Photo" class="w-full h-full object-cover">
+                </div>
+                <div class="w-full md:w-1/2 text-left p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#D1E8F7]">
+                    <h3 class="font-display text-2xl mb-2 text-[#83A9C0]">From the Groom</h3>
                     <p class="text-gray-600">"TBC - ข้อความจากเจ้าบ่าว สามารถแก้ไขได้ที่นี่"</p>
                     <p class="font-display text-xl text-right mt-4">- Kob</p>
                 </div>
-                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#D1E8F7]">
-                    <h3 class="font-display text-2xl mb-2 text-[#83A9C0]">From the Bride</h3>
+            </div>
+            <!-- Bride Message -->
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2 text-left p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#FADADD] order-2 md:order-1">
+                    <h3 class="font-display text-2xl mb-2 text-[#D98BA0]">From the Bride</h3>
                     <p class="text-gray-600">"TBC - ข้อความจากเจ้าสาว สามารถแก้ไขได้ที่นี่"</p>
                     <p class="font-display text-xl text-right mt-4">- Ying</p>
+                </div>
+                <div class="w-full md:w-1/2 rounded-lg overflow-hidden shadow-lg order-1 md:order-2">
+                     <!-- รูปเจ้าสาว -->
+                    <img src="https://placehold.co/600x700/FADADD/FFFFFF?text=Bride" alt="Bride's Photo" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
 
-        <!-- Date, Time, Countdown -->
-        <section class="text-center my-20 py-10 bg-pattern rounded-xl fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4">17.01.2026</h2>
-            <p class="text-xl">วันเสาร์ ที่ 17 มกราคม พ.ศ.2569</p>
-            <p class="text-xl">ตั้งแต่เวลา 17.00 น.</p>
-            <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 text-center mt-8">
-                <div>
-                    <div id="days" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                    <div class="text-sm">วัน</div>
+        <!-- Date, Time, Location, Countdown -->
+        <section class="my-16 fade-in">
+            <div class="text-center my-20 py-10 bg-pattern rounded-xl">
+                 <h2 class="font-display text-4xl md:text-5xl mb-4">17.01.2026</h2>
+                <p class="text-xl">วันเสาร์ ที่ 17 มกราคม พ.ศ.2569 | ตั้งแต่เวลา 17.00 น.</p>
+                <p class="text-xl font-display mt-2">ณ Finn l'amour​ studio​</p>
+
+                <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 text-center mt-8">
+                    <div>
+                        <div id="days" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                        <div class="text-sm">วัน</div>
+                    </div>
+                    <div>
+                        <div id="hours" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                        <div class="text-sm">ชั่วโมง</div>
+                    </div>
+                    <div>
+                        <div id="minutes" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                        <div class="text-sm">นาที</div>
+                    </div>
+                    <div>
+                        <div id="seconds" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                        <div class="text-sm">วินาที</div>
+                    </div>
                 </div>
-                <div>
-                    <div id="hours" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                    <div class="text-sm">ชั่วโมง</div>
-                </div>
-                <div>
-                    <div id="minutes" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                    <div class="text-sm">นาที</div>
-                </div>
-                <div>
-                    <div id="seconds" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                    <div class="text-sm">วินาที</div>
+            </div>
+            <div class="text-center mt-10">
+                 <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-6">
+                    ดูแผนที่บน Google Maps
+                </a>
+                 <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.297746419726!2d100.43573517590214!3d13.76110909675338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e299ce781a7043%3A0x6b447885b52c0338!2sFinn%20l'amour%20studio!5e0!3m2!1sen!2sth!4v1717493202157!5m2!1sen!2sth" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
         
-        <!-- Location -->
-        <section class="my-16 text-center fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4">Location</h2>
-            <p class="text-2xl font-display mb-2">Finn l'amour​ studio​</p>
-            <p class="mb-6">25 21 ถนน บรมราชชนนี แขวงฉิมพลี เขตตลิ่งชัน กรุงเทพมหานคร 10170</p>
-            <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-6">
-                ดูแผนที่บน Google Maps
-            </a>
-            <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.297746419726!2d100.43573517590214!3d13.76110909675338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e299ce781a7043%3A0x6b447885b52c0338!2sFinn%20l'amour%20studio!5e0!3m2!1sen!2sth!4v1717493202157!5m2!1sen!2sth" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Picture gallery panel 2 (แนวนอน 1 รูป) -->
+        <section class="my-16 fade-in">
+            <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                <!-- GALLERY 2: แก้ไข URL รูปภาพตรงนี้ เช่น "gallery/horizontal_2.jpg" -->
+                <img src="https://placehold.co/1200x675/D1E8F7/FFFFFF?text=Gallery+Photo+2" alt="Kob and Ying Photo 2" class="w-full h-full object-cover">
             </div>
         </section>
 
@@ -111,13 +137,13 @@
         <section class="my-16 text-center fade-in">
             <h2 class="font-display text-4xl md:text-5xl mb-4">Dress Code</h2>
             <p class="mb-6">แต่งกายด้วยสีพาสเทลที่สดใส เพื่อร่วมสร้างสีสันในวันพิเศษของเรา</p>
-            <div class="flex justify-center gap-2 md:gap-4 flex-wrap">
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FADADD] shadow-md flex items-center justify-center text-xs text-gray-600">ชมพู</div>
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#D4E7E1] shadow-md flex items-center justify-center text-xs text-gray-600">เขียว</div>
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#E3D7F1] shadow-md flex items-center justify-center text-xs text-gray-600">ม่วง</div>
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#D1E8F7] shadow-md flex items-center justify-center text-xs text-gray-600">ฟ้า</div>
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FDE4CF] shadow-md flex items-center justify-center text-xs text-gray-600">ส้ม</div>
-                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FFF5C9] shadow-md flex items-center justify-center text-xs text-gray-600">เหลือง</div>
+            <div class="flex justify-center gap-2 md:gap-4 flex-wrap max-w-sm mx-auto">
+                <div class="w-16 h-16 rounded-full bg-[#FADADD] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#D4E7E1] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#E3D7F1] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#D1E8F7] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#FDE4CF] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#FFF5C9] shadow-md"></div>
             </div>
         </section>
 
@@ -166,7 +192,7 @@
                     </div>
                     <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
                         <p class="font-bold text-gray-800">19:45 - 20:00</p>
-                        <p class="text-sm text-gray-600">รินอิตาเลี่ยนโซดา, พิธีโยนดอกไม้ + กิจกรรม</p>
+                        <p class="text-sm text-gray-600">รินอิตาเลี่ยนโซดา, พิธีโยนดอกไม้ และกิจกรรม</p>
                     </div>
                 </div>
                  <!-- Timeline Item -->
@@ -183,11 +209,21 @@
             </div>
         </section>
         
+        <!-- Picture gallery panel 3 (แนวตั้ง 4 รูป) -->
+        <section class="my-16 fade-in">
+            <div class="grid grid-cols-2 gap-4">
+                 <!-- GALLERY 3: แก้ไข URL รูปภาพทั้ง 4 รูป -->
+                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+3.1" alt="Gallery Photo 3.1" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+3.2" alt="Gallery Photo 3.2" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+3.3" alt="Gallery Photo 3.3" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/FDE4CF/FFFFFF?text=Gallery+3.4" alt="Gallery Photo 3.4" class="w-full h-full object-cover rounded-lg shadow-lg">
+            </div>
+        </section>
+
         <!-- RSVP -->
         <section class="my-20 text-center fade-in">
             <h2 class="font-display text-4xl md:text-5xl mb-4">RSVP</h2>
             <p class="mb-6">กรุณาตอบกลับการเข้าร่วมงานภายในวันที่ 31 ธันวาคม 2568<br>เพื่อที่เราจะได้เตรียมการต้อนรับทุกท่านอย่างดีที่สุด</p>
-            <!-- QR Code -->
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://kob-ying-wedding-rsvp.my.canva.site/" 
                  alt="QR Code for RSVP" 
                  class="mx-auto mb-6 rounded-lg shadow-md"
@@ -195,6 +231,20 @@
             <a href="https://kob-ying-wedding-rsvp.my.canva.site/" target="_blank" class="inline-block bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-colors duration-300">
                 ตอบกลับการเข้าร่วมงาน
             </a>
+        </section>
+
+        <!-- Picture gallery panel 4 (5 รูป) -->
+        <section class="my-16 fade-in">
+             <!-- GALLERY 4: แก้ไข URL รูปภาพทั้ง 5 รูป -->
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+4.1" alt="Gallery Photo 4.1" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+4.2" alt="Gallery Photo 4.2" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+4.3" alt="Gallery Photo 4.3" class="w-full h-full object-cover rounded-lg shadow-lg">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                 <img src="https://placehold.co/1200x675/FDE4CF/FFFFFF?text=Gallery+4.4" alt="Gallery Photo 4.4" class="w-full h-full object-cover rounded-lg shadow-lg">
+                 <img src="https://placehold.co/1200x675/D1E8F7/FFFFFF?text=Gallery+4.5" alt="Gallery Photo 4.5" class="w-full h-full object-cover rounded-lg shadow-lg">
+            </div>
         </section>
 
          <!-- Contact -->
@@ -263,3 +313,5 @@
     </script>
 </body>
 </html>
+
+
