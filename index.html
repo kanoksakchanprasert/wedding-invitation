@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation | Kob & Ying</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #FFFBF5; /* Soft beige background */
+            color: #5D5D5D; /* Dark grey for text */
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E3D7F1' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <header class="relative text-center text-white h-screen min-h-[600px] flex flex-col justify-center items-center">
+        <!-- Placeholder for main wedding photo -->
+        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('https://placehold.co/1200x800/FADADD/FFFFFF?text=Wedding+Photo');">
+            <div class="absolute inset-0 bg-black opacity-30"></div>
+        </div>
+        <div class="relative z-10 p-8 fade-in" id="hero-content">
+            <p class="text-lg md:text-2xl tracking-widest">WE ARE GETTING MARRIED</p>
+            <h1 class="font-display text-6xl md:text-9xl my-4">Kob & Ying</h1>
+            <p class="text-lg md:text-2xl tracking-widest">SAVE THE DATE</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-5 md:p-10">
+        
+        <!-- Greeting Message -->
+        <section class="text-center my-16 fade-in">
+            <p class="text-lg leading-relaxed mb-12">
+                เมื่อเราสองคนได้พบความรักที่สมบูรณ์แบบ<br>
+                เราจึงอยากเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในช่วงเวลาที่แสนพิเศษ<br>
+                เพื่อเฉลิมฉลองการเริ่มต้นชีวิตคู่ของเรา
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#FADADD]">
+                    <h3 class="font-display text-2xl mb-2 text-[#D98BA0]">From the Groom</h3>
+                    <p class="text-gray-600">"TBC - ข้อความจากเจ้าบ่าว สามารถแก้ไขได้ที่นี่"</p>
+                    <p class="font-display text-xl text-right mt-4">- Kob</p>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#D1E8F7]">
+                    <h3 class="font-display text-2xl mb-2 text-[#83A9C0]">From the Bride</h3>
+                    <p class="text-gray-600">"TBC - ข้อความจากเจ้าสาว สามารถแก้ไขได้ที่นี่"</p>
+                    <p class="font-display text-xl text-right mt-4">- Ying</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Date, Time, Countdown -->
+        <section class="text-center my-20 py-10 bg-pattern rounded-xl fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">17.01.2026</h2>
+            <p class="text-xl">วันเสาร์ ที่ 17 มกราคม พ.ศ.2569</p>
+            <p class="text-xl">ตั้งแต่เวลา 17.00 น.</p>
+            <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 text-center mt-8">
+                <div>
+                    <div id="days" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                    <div class="text-sm">วัน</div>
+                </div>
+                <div>
+                    <div id="hours" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                    <div class="text-sm">ชั่วโมง</div>
+                </div>
+                <div>
+                    <div id="minutes" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                    <div class="text-sm">นาที</div>
+                </div>
+                <div>
+                    <div id="seconds" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
+                    <div class="text-sm">วินาที</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Location -->
+        <section class="my-16 text-center fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">Location</h2>
+            <p class="text-2xl font-display mb-2">Finn l'amour​ studio​</p>
+            <p class="mb-6">25 21 ถนน บรมราชชนนี แขวงฉิมพลี เขตตลิ่งชัน กรุงเทพมหานคร 10170</p>
+            <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-6">
+                ดูแผนที่บน Google Maps
+            </a>
+            <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.297746419726!2d100.43573517590214!3d13.76110909675338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e299ce781a7043%3A0x6b447885b52c0338!2sFinn%20l'amour%20studio!5e0!3m2!1sen!2sth!4v1717493202157!5m2!1sen!2sth" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+
+        <!-- Dress Code -->
+        <section class="my-16 text-center fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">Dress Code</h2>
+            <p class="mb-6">แต่งกายด้วยสีพาสเทลที่สดใส เพื่อร่วมสร้างสีสันในวันพิเศษของเรา</p>
+            <div class="flex justify-center gap-2 md:gap-4 flex-wrap">
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FADADD] shadow-md flex items-center justify-center text-xs text-gray-600">ชมพู</div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#D4E7E1] shadow-md flex items-center justify-center text-xs text-gray-600">เขียว</div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#E3D7F1] shadow-md flex items-center justify-center text-xs text-gray-600">ม่วง</div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#D1E8F7] shadow-md flex items-center justify-center text-xs text-gray-600">ฟ้า</div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FDE4CF] shadow-md flex items-center justify-center text-xs text-gray-600">ส้ม</div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#FFF5C9] shadow-md flex items-center justify-center text-xs text-gray-600">เหลือง</div>
+            </div>
+        </section>
+
+        <!-- Event Program -->
+        <section class="my-16 fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-8 text-center">Event Program</h2>
+            <div class="relative border-l-2 border-dashed border-[#E3D7F1] ml-4 md:ml-0 md:before:content-[''] md:before:absolute md:before:left-1/2 md:before:top-0 md:before:h-full md:before:w-0.5 md:before:bg-[#E3D7F1]">
+                <!-- Timeline Item -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-[#E3D7F1] shadow-xl w-12 h-12 rounded-full">
+                        <h3 class="mx-auto font-semibold text-lg text-white">1</h3>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                        <p class="font-bold text-gray-800">17:00</p>
+                        <p class="text-sm text-gray-600">ถ่ายรูปกับครอบครัว</p>
+                    </div>
+                </div>
+                 <!-- Timeline Item -->
+                <div class="mb-8 flex justify-between md:flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-[#D1E8F7] shadow-xl w-12 h-12 rounded-full">
+                        <h3 class="mx-auto font-semibold text-lg text-white">2</h3>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                        <p class="font-bold text-gray-800">18:00</p>
+                        <p class="text-sm text-gray-600">ต้อนรับแขก</p>
+                    </div>
+                </div>
+                 <!-- Timeline Item -->
+                 <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-[#FADADD] shadow-xl w-12 h-12 rounded-full">
+                        <h3 class="mx-auto font-semibold text-lg text-white">3</h3>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                        <p class="font-bold text-gray-800">19:00 - 19:30</p>
+                        <p class="text-sm text-gray-600">เปิดตัวเจ้าบ่าว-เจ้าสาว และแลกแหวน</p>
+                    </div>
+                </div>
+                 <!-- Timeline Item -->
+                 <div class="mb-8 flex justify-between md:flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-[#FDE4CF] shadow-xl w-12 h-12 rounded-full">
+                        <h3 class="mx-auto font-semibold text-lg text-white">4</h3>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                        <p class="font-bold text-gray-800">19:45 - 20:00</p>
+                        <p class="text-sm text-gray-600">รินอิตาเลี่ยนโซดา, พิธีโยนดอกไม้ + กิจกรรม</p>
+                    </div>
+                </div>
+                 <!-- Timeline Item -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-[#D4E7E1] shadow-xl w-12 h-12 rounded-full">
+                        <h3 class="mx-auto font-semibold text-lg text-white">5</h3>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                        <p class="font-bold text-gray-800">21:30</p>
+                        <p class="text-sm text-gray-600">After Party</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- RSVP -->
+        <section class="my-20 text-center fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">RSVP</h2>
+            <p class="mb-6">กรุณาตอบกลับการเข้าร่วมงานภายในวันที่ 31 ธันวาคม 2568<br>เพื่อที่เราจะได้เตรียมการต้อนรับทุกท่านอย่างดีที่สุด</p>
+            <!-- QR Code -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://kob-ying-wedding-rsvp.my.canva.site/" 
+                 alt="QR Code for RSVP" 
+                 class="mx-auto mb-6 rounded-lg shadow-md"
+                 onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFFFFF/000000?text=QR+Code';">
+            <a href="https://kob-ying-wedding-rsvp.my.canva.site/" target="_blank" class="inline-block bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-colors duration-300">
+                ตอบกลับการเข้าร่วมงาน
+            </a>
+        </section>
+
+         <!-- Contact -->
+        <section class="my-16 text-center fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">Contact</h2>
+            <p>หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อได้ที่</p>
+            <p class="mt-2 font-semibold">TBC (เบอร์ติดต่อ)</p>
+        </section>
+    </main>
+
+    <footer class="text-center py-10 bg-gray-100">
+        <p class="font-display text-3xl">Thank You</p>
+        <p class="mt-2">หวังว่าจะได้พบกันในวันงานนะคะ</p>
+        <p class="font-display text-2xl mt-4">Kob & Ying</p>
+    </footer>
+
+    <script>
+        // Countdown Timer Logic
+        // The wedding date is January 17, 2569 B.E. which is 2026 C.E.
+        const weddingDate = new Date("Jan 17, 2026 17:00:00").getTime();
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<div class='text-center w-full font-display text-3xl'>The wedding day is here!</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }, 1000);
+
+        // Fade-in animation on scroll
+        const fadeInElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeInElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Special observer for hero content to fade in on load
+        const heroContent = document.getElementById('hero-content');
+        setTimeout(() => {
+            heroContent.classList.add('visible');
+        }, 300);
+
+    </script>
+</body>
+</html>
