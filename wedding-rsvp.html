@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kob & Ying Wedding RSVP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS หลักสำหรับสีและฟอนต์ (ตามไฟล์แรกและดีไซน์เกาหลี) */
+        :root {
+            --color-primary: #A855F7; /* violet-500 */
+            --color-secondary: #EC4899; /* pink-500 */
+        }
+
+        body {
+            /* ใช้ Noto Sans Thai เป็นฟอนต์หลัก */
+            font-family: 'Noto Sans Thai', sans-serif;
+            /* Background Gradient */
+            background: linear-gradient(-45deg, #fce7f3, #e0f2fe, #f5f3ff, #f0fdfa);
+            background-size: 400% 400%;
+            animation: gradientBG 25s ease infinite;
+            color: #374151; /* gray-700 */
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        /* [NEW] Grainy Texture (เพิ่มความหรูหราแบบเกาหลี) */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15; /* ปรับความเข้ม */
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3Cfeturblence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: -1;
+        }
+
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ใช้ Cormorant Garamond สำหรับหัวข้อ/ชื่อคู่บ่าวสาว */
+        h1, h2, h3, .font-display {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Glass Effect และ Shadow */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .korean-shadow {
+            box-shadow: 0 8px 32px rgba(219, 39, 119, 0.1);
+        }
+        
+        /* Loading Overlay Style (ใช้สำหรับ Loading เท่านั้น) */
+        .fixed-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Animations */
+        .heart-float {
+            animation: heartFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn-korean {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-korean:hover {
+            background: linear-gradient(135deg, #be185d, #9d174d);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+        }
+        
+        .input-korean {
+            border: 2px solid #f9a8d4;
+            transition: all 0.3s ease;
+        }
+        
+        .input-korean:focus {
+            border-color: #ec4899;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+        }
+        
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(219, 39, 119, 0.15);
+        }
+        
+        /* CSS สำหรับ Success Message ให้แสดงผลต่อจากฟอร์ม (Flow) */
+        .message-card {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col items-center">
+    
+    <div id="loading" class="fixed-overlay hidden">
+        <div class="glass-effect rounded-2xl p-8 korean-shadow text-center max-w-sm w-full">
+            <div class="animate-spin text-4xl mb-4">🌸</div>
+            <p class="text-gray-700 text-base font-medium">กำลังส่งข้อมูล... กรุณารอสักครู่</p>
+        </div>
+    </div>
+
+
+    <div class="max-w-2xl mx-auto py-8 px-4 w-full">
+        <div class="text-center mb-8 fade-in">
+            <div class="heart-float text-6xl mb-4">💕</div>
+            <h2 class="font-display text-4xl md:text-5xl font-extrabold text-pink-600 mb-2">Kob & Ying's Wedding</h2>
+            <p class="font-display text-xl md:text-2xl font-semibold text-purple-600 mb-4">กรุณากรอกฟอร์มเพื่อตอบรับการเข้าร่วมงาน</p>
+        </div>
+
+        <form id="rsvpForm" class="space-y-6">
+            <div class="glass-effect rounded-2xl p-6 korean-shadow question-card fade-in">
+                <label class="block text-base font-medium text-gray-800 mb-3">
+                    <span class="text-pink-500">🌸</span> ชื่อ-นามสกุล ผู้มาร่วมงาน *
+                </label>
+                <input type="text" id="fullName" name="fullName" required
+                       class="w-full px-4 py-3 rounded-xl input-korean focus:outline-none text-gray-700 text-base"
+                       placeholder="กรุณากรอกชื่อ-นามสกุล">
+            </div>
+
+            <div class="glass-effect rounded-2xl p-6 korean-shadow question-card fade-in">
+                <label class="block text-base font-medium text-gray-800 mb-4">
+                    <span class="text-purple-500">💐</span> ท่านสามารถเข้าร่วมงานเลี้ยงของเราได้หรือไม่? *
+                </label>
+                <div class="space-y-3 text-base">
+                    <label class="flex items-center p-3 rounded-xl hover:bg-pink-50 cursor-pointer transition-colors">
+                        <input type="radio" name="attendance" value="เข้าร่วม" required
+                               class="w-5 h-5 text-pink-600 mr-3" onchange="toggleAdditionalQuestions(true)">
+                        <span class="text-gray-700 font-medium">✨ เข้าร่วม</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-xl hover:bg-pink-50 cursor-pointer transition-colors">
+                        <input type="radio" name="attendance" value="ไม่สามารถเข้าร่วมได้" required
+                               class="w-5 h-5 text-pink-600 mr-3" onchange="toggleAdditionalQuestions(false)">
+                        <span class="text-gray-700 font-medium">😢 ไม่สามารถเข้าร่วมได้</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="additionalQuestions" class="space-y-6 hidden"> 
+                <div class="glass-effect rounded-2xl p-6 korean-shadow question-card fade-in">
+                    <label class="block text-base font-medium text-gray-800 mb-3">
+                        <span class="text-green-500">🌿</span> จำนวนผู้เข้าร่วมทั้งหมด (รวมตัวท่านเอง)
+                    </label>
+                    <select id="guestCount" name="guestCount"
+                            class="w-full px-4 py-3 rounded-xl input-korean focus:outline-none text-gray-700 text-base">
+                        <option value="">เลือกจำนวนผู้เข้าร่วม</option>
+                        <option value="1">1 คน</option>
+                        <option value="2">2 คน</option>
+                        <option value="3">3 คน</option>
+                        <option value="4">4 คน</option>
+                        <option value="5">5 คน</option>
+                    </select>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 korean-shadow question-card fade-in">
+                    <label class="block text-base font-medium text-gray-800 mb-3">
+                        <span class="text-yellow-500">🍽️</span> มีข้อจำกัดด้านอาหาร/แพ้อาหารหรือไม่?
+                    </label>
+                    <input type="text" id="dietaryRestrictions" name="dietaryRestrictions"
+                           class="w-full px-4 py-3 rounded-xl input-korean focus:outline-none text-gray-700 text-base"
+                           placeholder="เช่น แพ้กุ้ง, ทานมังสวิรัติ, ไม่ทานเผ็ด">
+                </div>
+            </div>
+
+            <div class="glass-effect rounded-2xl p-6 korean-shadow question-card fade-in">
+                <label class="block text-base font-medium text-gray-800 mb-3">
+                    <span class="text-pink-400">💌</span> คำอวยพรสำหรับคู่บ่าวสาว
+                </label>
+                <textarea id="wishes" name="wishes" rows="4"
+                          class="w-full px-4 py-3 rounded-xl input-korean focus:outline-none text-gray-700 resize-none text-base"
+                          placeholder="ส่งคำอวยพรดีๆ ให้คู่บ่าวสาวได้เลย..."></textarea>
+            </div>
+
+            <div class="text-center pt-4">
+                <button type="submit" id="submitBtn"
+                        class="btn-korean text-white font-semibold py-3 px-8 rounded-2xl text-lg korean-shadow">
+                    <span class="mr-2">💕</span>
+                    ส่งการตอบกลับ
+                </button>
+            </div>
+        </form>
+
+        <div id="successMessage" class="message-card hidden text-center">
+            <div class="glass-effect rounded-2xl p-8 korean-shadow">
+                <div class="text-6xl mb-4">🎉</div>
+                <h3 class="text-2xl font-bold text-pink-600 mb-2 font-display">ขอบคุณสำหรับการตอบกลับ!</h3>
+                <p class="text-gray-700 text-base">เราได้รับข้อมูลของคุณเรียบร้อยแล้ว</p>
+                <p class="text-gray-600 mt-2 text-sm">แล้วพบกันในวันแต่งงานนะคะ! 💕</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // [UPDATED] ใช้ classList.remove/add('hidden') แทน style.display
+        function toggleAdditionalQuestions(show) {
+            const additionalQuestions = document.getElementById('additionalQuestions');
+            if (show) {
+                additionalQuestions.classList.remove('hidden'); 
+                additionalQuestions.classList.add('fade-in');
+            } else {
+                additionalQuestions.classList.add('hidden'); // ซ่อน
+                // Clear additional question values when hidden
+                document.getElementById('guestCount').value = '';
+                document.getElementById('dietaryRestrictions').value = '';
+            }
+        }
+
+        document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const successMessage = document.getElementById('successMessage');
+            const form = this;
+            
+            // 1. Show loading overlay
+            loading.classList.remove('hidden'); 
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="mr-2">⏳</span>กำลังส่ง...';
+            
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzkR026rxBVH9hwm_lcJOHRmvzAzmRh6NPxfEia2Kxyccc-q8muPNjZzz2wg72dz7YF/exec';
+            const formData = new FormData(form);
+
+            // เพิ่ม Timestamp เข้าไปใน FormData
+            const timestamp = new Date().toLocaleString('th-TH', {
+                timeZone: 'Asia/Bangkok',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            formData.append('timestamp', timestamp);
+            
+            try {
+                // ส่งข้อมูลไปที่ Google Apps Script
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                // 2. Hide loading, hide form, and show success message (Flow)
+                setTimeout(() => {
+                    loading.classList.add('hidden'); // ซ่อน Loading Overlay
+                    form.style.display = 'none'; // ซ่อนฟอร์ม
+                    successMessage.classList.remove('hidden'); // แสดงข้อความสำเร็จ
+                    successMessage.classList.add('fade-in');
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // แสดงข้อความสำเร็จ (เพื่อไม่ให้ผู้ใช้สับสน)
+                setTimeout(() => {
+                    loading.classList.add('hidden');
+                    form.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                    successMessage.classList.add('fade-in');
+                }, 2000);
+            }
+        });
+
+        // Floating hearts animation
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💕';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.opacity = '0.7';
+            heart.style.fontSize = '20px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '1000';
+            heart.classList.add('heart-float');
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createFloatingHeart, 3000);
+    </script>
+</body>
+</html>
