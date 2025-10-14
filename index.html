@@ -11,9 +11,18 @@
     <style>
         body {
             font-family: 'Noto Sans Thai', sans-serif;
-            background-color: #FFFBF5; /* Soft beige background */
+            background: linear-gradient(-45deg, #fce1e3, #d1e8f7, #e3d7f1, #d4e7e1);
+            background-size: 400% 400%;
+            animation: gradientBG 25s ease infinite;
             color: #5D5D5D; /* Dark grey for text */
         }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         h1, h2, h3, .font-display {
             font-family: 'Cormorant Garamond', serif;
         }
@@ -28,6 +37,16 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        #modalContent {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        main > section {
+            background-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
         }
     </style>
 </head>
@@ -49,7 +68,7 @@
     <main class="max-w-4xl mx-auto p-5 md:p-10">
         
         <!-- Picture gallery panel 1 (แนวนอน 1 รูป) -->
-        <section class="my-16 fade-in">
+        <section class="fade-in">
             <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
                 <!-- GALLERY 1: แก้ไข URL รูปภาพตรงนี้ เช่น "gallery/horizontal_1.jpg" -->
                 <img src="https://placehold.co/1200x675/E3D7F1/FFFFFF?text=Gallery+Photo+1" alt="Kob and Ying Photo 1" class="w-full h-full object-cover">
@@ -57,7 +76,7 @@
         </section>
 
         <!-- Greeting Message -->
-        <section class="text-center my-16 fade-in">
+        <section class="text-center fade-in">
             <p class="text-lg leading-relaxed mb-12">
                 เมื่อเราสองคนได้พบความรักที่สมบูรณ์แบบ<br>
                 เราจึงอยากเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในช่วงเวลาที่แสนพิเศษ<br>
@@ -90,8 +109,8 @@
         </section>
 
         <!-- Date, Time, Location, Countdown -->
-        <section class="my-16 fade-in">
-            <div class="text-center my-20 py-10 bg-pattern rounded-xl">
+        <section class="fade-in">
+            <div class="text-center mb-10 py-10 bg-pattern rounded-xl">
                  <h2 class="font-display text-4xl md:text-5xl mb-4">17.01.2026</h2>
                 <p class="text-xl">วันเสาร์ ที่ 17 มกราคม พ.ศ.2569 | ตั้งแต่เวลา 17.00 น.</p>
                 <p class="text-xl font-display mt-2">ณ Finn l'amour​ studio​</p>
@@ -115,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-10">
+            <div class="text-center">
                  <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-6">
                     ดูแผนที่บน Google Maps
                 </a>
@@ -126,7 +145,7 @@
         </section>
         
         <!-- Picture gallery panel 2 (แนวนอน 1 รูป) -->
-        <section class="my-16 fade-in">
+        <section class="fade-in">
             <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
                 <!-- GALLERY 2: แก้ไข URL รูปภาพตรงนี้ เช่น "gallery/horizontal_2.jpg" -->
                 <img src="https://placehold.co/1200x675/D1E8F7/FFFFFF?text=Gallery+Photo+2" alt="Kob and Ying Photo 2" class="w-full h-full object-cover">
@@ -134,22 +153,28 @@
         </section>
 
         <!-- Dress Code -->
-        <section class="my-16 text-center fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4">Dress Code</h2>
+        <section class="text-center fade-in">
+            <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4a1 1 0 001 1v1a1 1 0 002 0V5a1 1 0 00-1-1H4zM15 4a1 1 0 001-1V2a1 1 0 00-2 0v1a1 1 0 001 1zM7 8a1 1 0 000 2h6a1 1 0 100-2H7zM4 12a1 1 0 001 1h10a1 1 0 100-2H5a1 1 0 00-1 1zM4 16a1 1 0 001 1h10a1 1 0 100-2H5a1 1 0 00-1 1z" clip-rule="evenodd" /></svg>
+                Dress Code
+            </h2>
             <p class="mb-6">แต่งกายด้วยสีพาสเทลที่สดใส เพื่อร่วมสร้างสีสันในวันพิเศษของเรา</p>
             <div class="flex justify-center gap-2 md:gap-4 flex-wrap max-w-sm mx-auto">
-                <div class="w-16 h-16 rounded-full bg-[#FADADD] shadow-md"></div>
-                <div class="w-16 h-16 rounded-full bg-[#D4E7E1] shadow-md"></div>
-                <div class="w-16 h-16 rounded-full bg-[#E3D7F1] shadow-md"></div>
-                <div class="w-16 h-16 rounded-full bg-[#D1E8F7] shadow-md"></div>
-                <div class="w-16 h-16 rounded-full bg-[#FDE4CF] shadow-md"></div>
-                <div class="w-16 h-16 rounded-full bg-[#FFF5C9] shadow-md"></div>
+                <div class="w-16 h-16 rounded-full bg-[#FADADD] shadow-md transform hover:scale-110 transition-transform"></div>
+                <div class="w-16 h-16 rounded-full bg-[#D4E7E1] shadow-md transform hover:scale-110 transition-transform"></div>
+                <div class="w-16 h-16 rounded-full bg-[#E3D7F1] shadow-md transform hover:scale-110 transition-transform"></div>
+                <div class="w-16 h-16 rounded-full bg-[#D1E8F7] shadow-md transform hover:scale-110 transition-transform"></div>
+                <div class="w-16 h-16 rounded-full bg-[#FDE4CF] shadow-md transform hover:scale-110 transition-transform"></div>
+                <div class="w-16 h-16 rounded-full bg-[#FFF5C9] shadow-md transform hover:scale-110 transition-transform"></div>
             </div>
         </section>
 
         <!-- Event Program -->
-        <section class="my-16 fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-8 text-center">Event Program</h2>
+        <section class="fade-in">
+             <h2 class="font-display text-4xl md:text-5xl mb-8 text-center flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
+                Event Program
+            </h2>
             <div class="relative border-l-2 border-dashed border-[#E3D7F1] ml-4 md:ml-0 md:before:content-[''] md:before:absolute md:before:left-1/2 md:before:top-0 md:before:h-full md:before:w-0.5 md:before:bg-[#E3D7F1]">
                 <!-- Timeline Item -->
                 <div class="mb-8 flex justify-between items-center w-full right-timeline">
@@ -210,50 +235,121 @@
         </section>
         
         <!-- Picture gallery panel 3 (แนวตั้ง 4 รูป) -->
-        <section class="my-16 fade-in">
-            <div class="grid grid-cols-2 gap-4">
+        <section class="fade-in">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-center">
                  <!-- GALLERY 3: แก้ไข URL รูปภาพทั้ง 4 รูป -->
-                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+3.1" alt="Gallery Photo 3.1" class="w-full h-full object-cover rounded-lg shadow-lg">
-                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+3.2" alt="Gallery Photo 3.2" class="w-full h-full object-cover rounded-lg shadow-lg">
-                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+3.3" alt="Gallery Photo 3.3" class="w-full h-full object-cover rounded-lg shadow-lg">
-                <img src="https://placehold.co/600x900/FDE4CF/FFFFFF?text=Gallery+3.4" alt="Gallery Photo 3.4" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+3.1" alt="Gallery Photo 3.1" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+3.2" alt="Gallery Photo 3.2" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[2deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+3.3" alt="Gallery Photo 3.3" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[-2deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x900/FDE4CF/FFFFFF?text=Gallery+3.4" alt="Gallery Photo 3.4" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[3deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
             </div>
         </section>
 
         <!-- RSVP -->
-        <section class="my-20 text-center fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4">RSVP</h2>
+        <section class="text-center fade-in">
+             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-rose-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                RSVP
+            </h2>
             <p class="mb-6">กรุณาตอบกลับการเข้าร่วมงานภายในวันที่ 31 ธันวาคม 2568<br>เพื่อที่เราจะได้เตรียมการต้อนรับทุกท่านอย่างดีที่สุด</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://kob-ying-wedding-rsvp.my.canva.site/" 
-                 alt="QR Code for RSVP" 
-                 class="mx-auto mb-6 rounded-lg shadow-md"
-                 onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFFFFF/000000?text=QR+Code';">
-            <a href="https://kob-ying-wedding-rsvp.my.canva.site/" target="_blank" class="inline-block bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-colors duration-300">
+            <button id="openRsvpModal" class="inline-block bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-colors duration-300 transform hover:scale-105">
                 ตอบกลับการเข้าร่วมงาน
-            </a>
+            </button>
         </section>
 
         <!-- Picture gallery panel 4 (5 รูป) -->
-        <section class="my-16 fade-in">
+        <section class="fade-in">
              <!-- GALLERY 4: แก้ไข URL รูปภาพทั้ง 5 รูป -->
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+4.1" alt="Gallery Photo 4.1" class="w-full h-full object-cover rounded-lg shadow-lg">
-                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+4.2" alt="Gallery Photo 4.2" class="w-full h-full object-cover rounded-lg shadow-lg">
-                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+4.3" alt="Gallery Photo 4.3" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <img src="https://placehold.co/600x900/FADADD/FFFFFF?text=Gallery+4.1" alt="Gallery Photo 4.1" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <img src="https://placehold.co/600x900/D4E7E1/FFFFFF?text=Gallery+4.2" alt="Gallery Photo 4.2" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <img src="https://placehold.co/600x900/E3D7F1/FFFFFF?text=Gallery+4.3" alt="Gallery Photo 4.3" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
             </div>
             <div class="grid grid-cols-2 gap-4">
-                 <img src="https://placehold.co/1200x675/FDE4CF/FFFFFF?text=Gallery+4.4" alt="Gallery Photo 4.4" class="w-full h-full object-cover rounded-lg shadow-lg">
-                 <img src="https://placehold.co/1200x675/D1E8F7/FFFFFF?text=Gallery+4.5" alt="Gallery Photo 4.5" class="w-full h-full object-cover rounded-lg shadow-lg">
+                 <img src="https://placehold.co/1200x675/FDE4CF/FFFFFF?text=Gallery+4.4" alt="Gallery Photo 4.4" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                 <img src="https://placehold.co/1200x675/D1E8F7/FFFFFF?text=Gallery+4.5" alt="Gallery Photo 4.5" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
             </div>
         </section>
 
          <!-- Contact -->
-        <section class="my-16 text-center fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4">Contact</h2>
+        <section class="text-center fade-in">
+             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>
+                Contact
+            </h2>
             <p>หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อได้ที่</p>
             <p class="mt-2 font-semibold">TBC (เบอร์ติดต่อ)</p>
         </section>
     </main>
+
+    <!-- RSVP Modal -->
+    <div id="rsvpModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
+        <div id="modalContent" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 md:p-8 relative transform transition-all scale-95 opacity-0">
+            <button id="closeRsvpModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Form -->
+            <form id="rsvpForm">
+                <h2 class="font-display text-3xl mb-6 text-center">RSVP Form</h2>
+                <!-- Question 1: Name -->
+                <div class="mb-4">
+                    <label for="fullName" class="block text-gray-700 font-semibold mb-2">ชื่อ-นามสกุล ผู้มาร่วมงาน *</label>
+                    <input type="text" id="fullName" name="fullName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]" required>
+                </div>
+                <!-- Question 2: Attendance -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">ท่านสามารถเข้าร่วมงานเลี้ยงของเราได้หรือไม่? *</label>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="attendance" value="เข้าร่วม" class="mr-2" required> เข้าร่วม
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="attendance" value="ไม่สามารถเข้าร่วมได้" class="mr-2"> ไม่สามารถเข้าร่วมได้
+                        </label>
+                    </div>
+                </div>
+                <!-- Conditional Questions Wrapper -->
+                <div id="conditionalQuestions" class="hidden space-y-4">
+                    <!-- Question 3: Guest Count -->
+                    <div class="mb-4">
+                        <label for="guestCount" class="block text-gray-700 font-semibold mb-2">จำนวนผู้เข้าร่วมทั้งหมด (รวมตัวท่านเอง)</label>
+                        <select id="guestCount" name="guestCount" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <!-- Question 4: Dietary -->
+                    <div class="mb-4">
+                        <label for="dietary" class="block text-gray-700 font-semibold mb-2">มีข้อจำกัดด้านอาหาร/แพ้อาหารหรือไม่? (ถ้ามี โปรดระบุ)</label>
+                        <input type="text" id="dietary" name="dietary" placeholder="เช่น แพ้อาหารทะเล, ทานมังสวิรัติ" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]">
+                    </div>
+                </div>
+                <!-- Additional Question: Wishes -->
+                <div class="mb-6">
+                    <label for="wishes" class="block text-gray-700 font-semibold mb-2">คำอวยพรสำหรับคู่บ่าวสาว</label>
+                    <textarea id="wishes" name="wishes" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]"></textarea>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" id="submitRsvp" class="w-full bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-all duration-300 flex items-center justify-center disabled:opacity-50">
+                    <span id="submitText">ส่งคำตอบ</span>
+                    <svg id="submitSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+            </form>
+             <!-- Success Message -->
+            <div id="successMessage" class="hidden text-center p-6">
+                <h3 class="font-display text-3xl mb-2 text-green-600">ขอบคุณ!</h3>
+                <p class="text-gray-700">เราได้รับคำตอบของคุณเรียบร้อยแล้วค่ะ</p>
+                <button id="closeSuccess" class="mt-6 bg-[#D98BA0] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#C77C8F]">ปิด</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="text-center py-10 bg-gray-100">
         <p class="font-display text-3xl">Thank You</p>
@@ -309,9 +405,93 @@
         setTimeout(() => {
             heroContent.classList.add('visible');
         }, 300);
+        
+        // RSVP Modal Logic
+        const openRsvpBtn = document.getElementById('openRsvpModal');
+        const closeRsvpBtn = document.getElementById('closeRsvpModal');
+        const rsvpModal = document.getElementById('rsvpModal');
+        const modalContent = document.getElementById('modalContent');
+        const rsvpForm = document.getElementById('rsvpForm');
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        const conditionalQuestions = document.getElementById('conditionalQuestions');
+        const submitBtn = document.getElementById('submitRsvp');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const successMessage = document.getElementById('successMessage');
+        const closeSuccessBtn = document.getElementById('closeSuccess');
+
+
+        const openModal = () => {
+            rsvpModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        };
+
+        const closeModal = () => {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            setTimeout(() => {
+                rsvpModal.classList.add('hidden');
+                // Reset form for next time
+                rsvpForm.reset();
+                conditionalQuestions.classList.add('hidden');
+                successMessage.classList.add('hidden');
+                rsvpForm.style.display = 'block';
+            }, 300);
+        };
+
+        openRsvpBtn.addEventListener('click', openModal);
+        closeRsvpBtn.addEventListener('click', closeModal);
+        closeSuccessBtn.addEventListener('click', closeModal);
+        rsvpModal.addEventListener('click', (e) => {
+            if (e.target === rsvpModal) {
+                closeModal();
+            }
+        });
+
+        attendanceRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'เข้าร่วม' && radio.checked) {
+                    conditionalQuestions.classList.remove('hidden');
+                } else {
+                    conditionalQuestions.classList.add('hidden');
+                }
+            });
+        });
+
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            submitText.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzkR026rxBVH9hwm_lcJOHRmvzAzmRh6NPxfEia2Kxyccc-q8muPNjZzz2wg72dz7YF/exec';
+            const formData = new FormData(rsvpForm);
+
+            fetch(scriptURL, { method: 'POST', body: formData})
+                .then(response => {
+                    if (response.ok) {
+                        rsvpForm.style.display = 'none';
+                        successMessage.classList.remove('hidden');
+                    } else {
+                         throw new Error('Submission failed!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+                })
+                .finally(() => {
+                    submitText.classList.remove('hidden');
+                    submitSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                });
+        });
 
     </script>
 </body>
 </html>
-
 
