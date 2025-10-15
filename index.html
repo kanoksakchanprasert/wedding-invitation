@@ -11,9 +11,9 @@
     <style>
         body {
             font-family: 'Noto Sans Thai', sans-serif;
-            background: linear-gradient(-45deg, #fce1e3, #d1e8f7, #e3d7f1, #d4e7e1);
+            background: linear-gradient(-45deg, #f8cdda, #c4def5, #d9cce6, #cce4de);
             background-size: 400% 400%;
-            animation: gradientBG 25s ease infinite;
+            animation: gradientBG 18s ease infinite;
             color: #5D5D5D; /* Dark grey for text */
         }
         
@@ -25,9 +25,6 @@
 
         h1, h2, h3, .font-display {
             font-family: 'Cormorant Garamond', serif;
-        }
-        .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E3D7F1' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .fade-in {
             opacity: 0;
@@ -42,11 +39,21 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
         main > section {
-            background-color: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
             border-radius: 1.5rem;
             padding: 2.5rem;
             margin-bottom: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        /* For gallery slider */
+        .slider-container {
+            scroll-behavior: smooth;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        .slider-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
     </style>
 </head>
@@ -55,7 +62,7 @@
     <!-- Hero Section -->
     <header class="relative text-center text-white h-screen min-h-[600px] flex flex-col justify-center items-center">
         <!-- Placeholder for main wedding photo -->
-        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('gallery/DSC04798.jpg');">
+        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('gallery/DSC04702.jpg');">
             <div class="absolute inset-0 bg-black opacity-30"></div>
         </div>
         <div class="relative z-10 p-8 fade-in" id="hero-content">
@@ -67,13 +74,6 @@
 
     <main class="max-w-4xl mx-auto p-5 md:p-10">
         
-        <!-- Picture gallery panel 1 (แนวนอน 1 รูป) -->
-        <section class="fade-in">
-            <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
-                <img src="gallery/DSC05991.jpg" alt="Kob and Ying Photo 1" class="w-full h-full object-cover">
-            </div>
-        </section>
-
         <!-- Greeting Message -->
         <section class="text-center fade-in">
             <p class="text-lg leading-relaxed mb-12">
@@ -107,43 +107,88 @@
             </div>
         </section>
 
-        <!-- Date, Time, Location, Countdown -->
-        <section class="fade-in">
-            <div class="text-center mb-10 py-10 bg-pattern rounded-xl">
-                 <h2 class="font-display text-4xl md:text-5xl mb-4">17.01.2026</h2>
-                <p class="text-xl">วันเสาร์ ที่ 17 มกราคม พ.ศ.2569 | ตั้งแต่เวลา 17.00 น.</p>
-                <p class="text-xl font-display mt-2">ณ Finn l'amour​ studio​</p>
-
-                <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 text-center mt-8">
-                    <div>
-                        <div id="days" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                        <div class="text-sm">วัน</div>
-                    </div>
-                    <div>
-                        <div id="hours" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                        <div class="text-sm">ชั่วโมง</div>
-                    </div>
-                    <div>
-                        <div id="minutes" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                        <div class="text-sm">นาที</div>
-                    </div>
-                    <div>
-                        <div id="seconds" class="font-display text-4xl md:text-6xl text-[#D98BA0]">00</div>
-                        <div class="text-sm">วินาที</div>
-                    </div>
+        <!-- Date, Time, Location & Countdown -->
+        <section class="fade-in text-center">
+            <h2 class="font-display text-4xl md:text-5xl mb-8 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Wedding Details
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Date -->
+                <div class="bg-white/60 p-6 rounded-xl shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#D98BA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    <h3 class="font-display text-2xl">Date</h3>
+                    <p>วันเสาร์ ที่ 17 มกราคม 2569</p>
+                </div>
+                <!-- Time -->
+                <div class="bg-white/60 p-6 rounded-xl shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#83A9C0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <h3 class="font-display text-2xl">Time</h3>
+                    <p>ตั้งแต่เวลา 17:00 น.</p>
+                </div>
+                <!-- Location -->
+                <div class="bg-white/60 p-6 rounded-xl shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#6A8B82]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <h3 class="font-display text-2xl">Location</h3>
+                    <p>Finn l'amour​ studio​</p>
                 </div>
             </div>
-            <div class="text-center">
-                 <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-6">
-                    ดูแผนที่บน Google Maps
-                </a>
+            <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-10">
+                ดูแผนที่บน Google Maps
+            </a>
+            <hr class="border-t border-gray-400/30 w-1/2 mx-auto mb-10">
+            <h3 class="font-display text-3xl mb-4">Countdown to Our Big Day</h3>
+            <div id="countdown" class="flex justify-center space-x-2 md:space-x-4 text-center">
+                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
+                    <div id="days" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs">วัน</div>
+                </div>
+                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
+                    <div id="hours" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs">ชั่วโมง</div>
+                </div>
+                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
+                    <div id="minutes" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs">นาที</div>
+                </div>
+                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
+                    <div id="seconds" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs">วินาที</div>
+                </div>
             </div>
         </section>
         
-        <!-- Picture gallery panel 2 (แนวนอน 1 รูป) -->
-        <section class="fade-in">
-            <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
-                <img src="gallery/DSC04702.jpg" alt="Kob and Ying Photo 2" class="w-full h-full object-cover">
+        <!-- Picture gallery panel 2 (Slider) -->
+        <section class="fade-in p-0 md:p-0 bg-transparent backdrop-filter-none">
+            <div class="relative shadow-xl rounded-2xl overflow-hidden">
+                <!-- Scrollable Container -->
+                <div id="gallery2-container" class="slider-container flex overflow-x-scroll snap-x snap-mandatory">
+                    <!-- GALLERY 2: แก้ไข URL รูปภาพได้ที่นี่ -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery/DSC04702.jpg" alt="Gallery Photo 2.1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery\DSC04798.jpg" alt="Gallery Photo 2.2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery\DSC05991.jpg" alt="Gallery Photo 2.3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                         <img src="gallery\DSC05929.jpg" alt="Gallery Photo 2.4" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                         <img src="gallery\DSC04772.jpg" alt="Gallery Photo 2.5" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <!-- Navigation Buttons -->
+                <button id="gallery2-prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="gallery2-next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
             </div>
         </section>
 
@@ -252,17 +297,40 @@
             </button>
         </section>
 
-        <!-- Picture gallery panel 4 (5 รูป) -->
-        <section class="fade-in">
-             <!-- GALLERY 4: แก้ไข URL รูปภาพทั้ง 5 รูป -->
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <img src="gallery\DSC04765.jpg" alt="Gallery Photo 4.1" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-                <img src="gallery\DSC05820.jpg" alt="Gallery Photo 4.2" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-                <img src="gallery\DSC05888.jpg" alt="Gallery Photo 4.3" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                 <img src="gallery\DSC04843.jpg" alt="Gallery Photo 4.4" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
-                 <img src="gallery\DSC05929.jpg" alt="Gallery Photo 4.5" class="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+        <!-- Picture gallery panel 4 (Slider) -->
+        <section class="fade-in p-0 md:p-0 bg-transparent backdrop-filter-none">
+            <div class="relative shadow-xl rounded-2xl overflow-hidden">
+                <!-- Scrollable Container -->
+                <div id="gallery4-container" class="slider-container flex overflow-x-scroll snap-x snap-mandatory">
+                    <!-- GALLERY 4: แก้ไข URL รูปภาพทั้ง 5 รูป -->
+                    <!-- Slide 1 -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery\DSC04765.jpg" alt="Gallery Photo 4.1" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery\DSC05820.jpg" alt="Gallery Photo 4.2" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                        <img src="gallery\DSC05888.jpg" alt="Gallery Photo 4.3" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                         <img src="gallery\DSC04856.jpg" alt="Gallery Photo 4.4" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
+                         <img src="gallery\DSC05962.jpg" alt="Gallery Photo 4.5" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <!-- Navigation Buttons -->
+                <button id="gallery4-prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="gallery4-next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
             </div>
         </section>
 
@@ -485,10 +553,42 @@
                     submitBtn.disabled = false;
                 });
         });
+        
+        // Gallery 4 Slider Logic
+        const galleryContainer = document.getElementById('gallery4-container');
+        const prevBtn = document.getElementById('gallery4-prev');
+        const nextBtn = document.getElementById('gallery4-next');
+
+        if (galleryContainer && prevBtn && nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                const slideWidth = galleryContainer.querySelector('.slide').clientWidth;
+                galleryContainer.scrollLeft += slideWidth;
+            });
+
+            prevBtn.addEventListener('click', () => {
+                const slideWidth = galleryContainer.querySelector('.slide').clientWidth;
+                galleryContainer.scrollLeft -= slideWidth;
+            });
+        }
+        
+        // Gallery 2 Slider Logic
+        const gallery2Container = document.getElementById('gallery2-container');
+        const prev2Btn = document.getElementById('gallery2-prev');
+        const next2Btn = document.getElementById('gallery2-next');
+
+        if (gallery2Container && prev2Btn && next2Btn) {
+            next2Btn.addEventListener('click', () => {
+                const slideWidth = gallery2Container.querySelector('.slide').clientWidth;
+                gallery2Container.scrollLeft += slideWidth;
+            });
+
+            prev2Btn.addEventListener('click', () => {
+                const slideWidth = gallery2Container.querySelector('.slide').clientWidth;
+                gallery2Container.scrollLeft -= slideWidth;
+            });
+        }
 
     </script>
 </body>
 </html>
-
-
 
