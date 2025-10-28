@@ -11,6 +11,7 @@
     <style>
         body {
             font-family: 'Noto Sans Thai', sans-serif;
+            /* **กลับมาใช้พื้นหลังแบบไล่สีเคลื่อนไหว (Animated Gradient)** */
             background: linear-gradient(-45deg, #f8cdda, #c4def5, #d9cce6, #cce4de);
             background-size: 400% 400%;
             animation: gradientBG 18s ease infinite;
@@ -35,10 +36,11 @@
             opacity: 1;
             transform: translateY(0);
         }
-        #modalContent {
+        #modalContent, #giftingModalContent {
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
         main > section {
+            /* **กลับมาใช้พื้นหลังแบบกระจกฝ้า (Translucent)** */
             background-color: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
             border-radius: 1.5rem;
@@ -62,7 +64,7 @@
     <!-- Hero Section -->
     <header class="relative text-center text-white h-screen min-h-[600px] flex flex-col justify-center items-center">
         <!-- Placeholder for main wedding photo -->
-        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('gallery/DSC04702.jpg');">
+        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('gallery/DSC05920.jpg');">
             <div class="absolute inset-0 bg-black opacity-30"></div>
         </div>
         <div class="relative z-10 p-8 fade-in" id="hero-content">
@@ -244,7 +246,7 @@
                     <div class="z-10 flex items-center order-1 bg-[#FADADD] shadow-xl w-12 h-12 rounded-full">
                         <h3 class="mx-auto font-semibold text-lg text-white">3</h3>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/1LED px-6 py-4">
                         <p class="font-bold text-gray-800">19:00 - 19:30</p>
                         <p class="text-sm text-gray-600">เปิดตัวเจ้าบ่าว-เจ้าสาว และพิธีแลกแหวน</p>
                     </div>
@@ -334,6 +336,27 @@
             </div>
         </section>
 
+         <!-- NEW: Wedding Gift -->
+        <section class="text-center fade-in">
+             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4H5z" />
+                </svg>
+                Wedding Gift
+            </h2>
+            <p class="mb-6">
+                สำหรับแขกผู้มีเกียรติที่ประสงค์จะร่วมอวยพรคู่บ่าวสาว<br>
+                สามารถส่งคำอวยพรและของขวัญได้ที่นี่
+            </p>
+            <!-- แก้ไขรูป QR Code ของคุณที่นี่ -->
+            <div class="flex justify-center mb-6">
+                <img src="https://placehold.co/250x250/FFFFFF/333333?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md border-4 border-white">
+            </div>
+            <button id="openGiftingModal" class="inline-block bg-[#6A8B82] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#59786F] transition-colors duration-300 transform hover:scale-105">
+                แจ้งการโอนและส่งคำอวยพร
+            </button>
+        </section>
+
          <!-- Contact -->
         <section class="text-center fade-in">
              <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
@@ -410,6 +433,68 @@
                 <h3 class="font-display text-3xl mb-2 text-green-600">ขอบคุณ!</h3>
                 <p class="text-gray-700">เราได้รับคำตอบของคุณเรียบร้อยแล้วค่ะ</p>
                 <button id="closeSuccess" class="mt-6 bg-[#D98BA0] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#C77C8F]">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW: Gifting Modal -->
+    <div id="giftingModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
+        <div id="giftingModalContent" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 md:p-8 relative transform transition-all scale-95 opacity-0">
+            <button id="closeGiftingModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Form -->
+            <form id="giftingForm">
+                <h2 class="font-display text-3xl mb-6 text-center">Send Your Love</h2>
+                
+                <!-- Sender Name -->
+                <div class="mb-4">
+                    <label for="fullNameGift" class="block text-gray-700 font-semibold mb-2">ชื่อ-นามสกุล ผู้โอน *</label>
+                    <input type="text" id="fullNameGift" name="fullNameGift" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]" required>
+                </div>
+                
+                <!-- Guest Side -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">แขกฝั่ง *</label>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="guestSide" value="เจ้าบ่าว" class="mr-2" required> แขกฝั่งเจ้าบ่าว
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="guestSide" value="เจ้าสาว" class="mr-2"> แขกฝั่งเจ้าสาว
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Slip Upload -->
+                <div class="mb-4">
+                    <label for="slipUpload" class="block text-gray-700 font-semibold mb-2">อัปโหลดสลิป (ถ้ามี)</label>
+                    <input type="file" id="slipUpload" name="slipUpload" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E3D7F1] file:text-[#5D5D5D] hover:file:bg-[#d9cce6]" accept="image/*">
+                    <!-- Slip Preview -->
+                    <img id="slipPreview" src="" alt="Slip Preview" class="hidden w-1/2 mx-auto mt-4 rounded-lg shadow-sm"/>
+                </div>
+
+                <!-- Wishes -->
+                <div class="mb-6">
+                    <label for="wishesGift" class="block text-gray-700 font-semibold mb-2">คำอวยพร</label>
+                    <textarea id="wishesGift" name="wishesGift" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]"></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" id="submitGiftingForm" class="w-full bg-[#6A8B82] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#59786F] transition-all duration-300 flex items-center justify-center disabled:opacity-50">
+                    <span id="submitGiftingText">ส่งคำอวยพร</span>
+                    <svg id="submitGiftingSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+            </form>
+             <!-- Success Message -->
+            <div id="giftingSuccessMessage" class="hidden text-center p-6">
+                <h3 class="font-display text-3xl mb-2 text-green-600">ขอบคุณ!</h3>
+                <p class="text-gray-700">เราได้รับคำอวยพรของคุณแล้วค่ะ</p>
+                <button id="closeGiftingSuccess" class="mt-6 bg-[#D98BA0] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#C77C8F]">ปิด</button>
             </div>
         </div>
     </div>
@@ -585,6 +670,123 @@
             prev2Btn.addEventListener('click', () => {
                 const slideWidth = gallery2Container.querySelector('.slide').clientWidth;
                 gallery2Container.scrollLeft -= slideWidth;
+            });
+        }
+
+        // --- NEW: Gifting Modal Logic ---
+        const openGiftingBtn = document.getElementById('openGiftingModal');
+        const closeGiftingBtn = document.getElementById('closeGiftingModal');
+        const giftingModal = document.getElementById('giftingModal');
+        const giftingModalContent = document.getElementById('giftingModalContent');
+        const giftingForm = document.getElementById('giftingForm');
+        const submitGiftingBtn = document.getElementById('submitGiftingForm');
+        const submitGiftingText = document.getElementById('submitGiftingText');
+        const submitGiftingSpinner = document.getElementById('submitGiftingSpinner');
+        const giftingSuccessMessage = document.getElementById('giftingSuccessMessage');
+        const closeGiftingSuccessBtn = document.getElementById('closeGiftingSuccess');
+        const slipUpload = document.getElementById('slipUpload');
+        const slipPreview = document.getElementById('slipPreview');
+
+        const openGiftingModal = () => {
+            giftingModal.classList.remove('hidden');
+            setTimeout(() => {
+                giftingModalContent.classList.remove('scale-95', 'opacity-0');
+                giftingModalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        };
+
+        const closeGiftingModal = () => {
+            giftingModalContent.classList.add('scale-95', 'opacity-0');
+            giftingModalContent.classList.remove('scale-100', 'opacity-100');
+            setTimeout(() => {
+                giftingModal.classList.add('hidden');
+                // Reset form
+                giftingForm.reset();
+                slipPreview.classList.add('hidden');
+                giftingSuccessMessage.classList.add('hidden');
+                giftingForm.style.display = 'block';
+            }, 300);
+        };
+
+        if(openGiftingBtn) {
+            openGiftingBtn.addEventListener('click', openGiftingModal);
+        }
+        if(closeGiftingBtn) {
+            closeGiftingBtn.addEventListener('click', closeGiftingModal);
+        }
+        if(closeGiftingSuccessBtn) {
+            closeGiftingSuccessBtn.addEventListener('click', closeGiftingModal);
+        }
+        if(giftingModal) {
+            giftingModal.addEventListener('click', (e) => {
+                if (e.target === giftingModal) {
+                    closeGiftingModal();
+                }
+            });
+        }
+        
+        // Slip preview
+        if(slipUpload) {
+            slipUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        slipPreview.src = event.target.result;
+                        slipPreview.classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    slipPreview.classList.add('hidden');
+                }
+            });
+        }
+
+        if(giftingForm) {
+            giftingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                submitGiftingText.classList.add('hidden');
+                submitGiftingSpinner.classList.remove('hidden');
+                submitGiftingBtn.disabled = true;
+
+                // --- TODO: ข้อควรทราบ ---
+                // 1. คุณต้องสร้าง Google Apps Script ใหม่สำหรับฟอร์ม "Gifting" นี้โดยเฉพาะ
+                //    (เนื่องจากช่องข้อมูลไม่เหมือนกับฟอร์ม RSVP)
+                // 2. นำ URL ของ Script ใหม่มาใส่แทนที่ 'YOUR_NEW_GIFTING_SCRIPT_URL'
+                // 3. การส่ง "ไฟล์" (สลิป) ไปยัง Google Script ต้องใช้เทคนิคแปลงไฟล์เป็น Base64
+                //    ซึ่งซับซ้อนกว่าการส่งข้อความธรรมดา
+                // 4. โค้ดด้านล่างนี้เป็นการ *จำลอง* ว่าส่งสำเร็จ (แสดงหน้า Success)
+                //    เพื่อให้คุณทดสอบการทำงานของ Modal ได้ก่อน
+                
+                /* // --- ตัวอย่างโค้ดจริง (เมื่อได้ URL แล้ว) ---
+                // const scriptURL = 'YOUR_NEW_GIFTING_SCRIPT_URL'; 
+                // const formData = new FormData(giftingForm);
+                //
+                // // **หมายเหตุ:** การส่งไฟล์ (สลิป) ต้องใช้โค้ดเพิ่มเติมในการแปลงไฟล์
+                //
+                // fetch(scriptURL, { method: 'POST', body: formData})
+                //     .then(response => {
+                //         giftingForm.style.display = 'none';
+                //         giftingSuccessMessage.classList.remove('hidden');
+                //     })
+                //     .catch(error => alert('เกิดข้อผิดพลาด!'))
+                //     .finally(() => {
+                //         submitGiftingText.classList.remove('hidden');
+                //         submitGiftingSpinner.classList.add('hidden');
+                //         submitGiftingBtn.disabled = false;
+                //     })
+                */
+                
+                // จำลองการส่ง (ลบส่วนนี้ออกเมื่อใช้โค้ดจริง)
+                setTimeout(() => {
+                    giftingForm.style.display = 'none';
+                    giftingSuccessMessage.classList.remove('hidden');
+                    
+                    submitGiftingText.classList.remove('hidden');
+                    submitGiftingSpinner.classList.add('hidden');
+                    submitGiftingBtn.disabled = false;
+                }, 1000); // 1 วินาที
             });
         }
 
