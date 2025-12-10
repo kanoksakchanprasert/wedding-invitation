@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honeymoon Fund - Wedding</title>
+    <title>Honeymoon Fund - Wedding (Web View)</title>
     
     <!-- Google Fonts: Prompt (Thai) & Playfair Display (English/Headings) -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,13 +39,13 @@
         .file-upload-wrapper {
             position: relative;
             width: 100%;
-            height: 150px;
-            border: 2px dashed #0891B2; /* wedding-ocean */
+            height: 120px; /* Reduced height for desktop balance */
+            border: 2px dashed #0891B2;
             border-radius: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #F0FDFA; /* Lightest cyan */
+            background-color: #F0FDFA;
             transition: all 0.3s ease;
             cursor: pointer;
             overflow: hidden;
@@ -67,135 +67,198 @@
         .loader {
             border: 3px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 3px solid #0891B2; /* wedding-ocean */
+            border-top: 3px solid #0891B2;
             width: 20px;
             height: 20px;
-            -webkit-animation: spin 1s linear infinite; /* Safari */
+            -webkit-animation: spin 1s linear infinite;
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Hide scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center py-6 px-4">
+<body class="bg-wedding-mist/50 min-h-screen flex items-center justify-center p-4 md:p-8">
 
-    <!-- Main Card Container -->
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden relative">
+    <!-- Desktop Card Container (Wide) -->
+    <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto md:h-[85vh] relative">
         
-        <!-- Decorative Top Bar -->
-        <div class="h-2 w-full bg-wedding-ocean"></div>
-
-        <!-- Header Image Area -->
-        <div class="relative h-48 bg-gray-200 overflow-hidden group">
-            <!-- Background Image (Beach Wedding Theme) -->
+        <!-- Left Side: Visuals (Image & Logo) -->
+        <div class="w-full md:w-5/12 relative h-64 md:h-auto bg-gray-200 group overflow-hidden">
+            <!-- Overlay Gradient -->
+            <div class="absolute inset-0 bg-black/30 z-10 transition-opacity duration-700 group-hover:bg-black/20"></div>
+            
+            <!-- Background Image -->
             <img src="./gallery/DSC04798.jpg" 
                  alt="Wedding Background" 
-                 class="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105">
+                 class="w-full h-full object-cover object-[60%_center] transition-transform duration-1000 group-hover:scale-105">
             
-            <!-- Logo Overlay -->
-            <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center p-4">
+            <!-- Centered Content on Image -->
+            <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center">
+                <!-- Logo -->
                 <img src="./image/MBR2505-037-09.png" 
                      alt="Wedding Logo" 
-                     class="w-auto h-12 object-contain drop-shadow-md"
+                     class="w-auto h-10 md:h-12 object-contain drop-shadow-lg mb-4 transform transition hover:scale-105 duration-300"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 
-                <!-- Fallback text if image not found -->
                 <h1 class="font-serif text-3xl font-bold tracking-wider drop-shadow-md text-white hidden">Your Logo Here</h1>
+                
+                <div class="hidden md:block text-white/90 font-serif italic mt-4 text-lg">
+                    "Together is a beautiful place to be"
+                </div>
             </div>
         </div>
 
-        <!-- Content Area -->
-        <div class="p-6 md:p-8">
-            
-            <!-- Title -->
-            <div class="text-center mb-8">
-                <h2 class="font-serif text-2xl text-wedding-text font-semibold text-wedding-ocean">Honeymoon Fund</h2>
-                <div class="w-16 h-0.5 bg-wedding-sand mx-auto mt-2 mb-4"></div>
-                <p class="text-gray-500 text-sm">สามารถร่วมอวยพรและสนับสนุนคู่บ่าวสาวได้ผ่านช่องทางนี้</p>
-            </div>
+        <!-- Right Side: Content & Form (Scrollable) -->
+        <div class="w-full md:w-7/12 flex flex-col h-full bg-white relative">
+            <!-- Decorative Top Line for Mobile only -->
+            <div class="h-2 w-full bg-wedding-ocean md:hidden"></div>
 
-            <!-- Transfer Info Section -->
-            <div class="bg-wedding-mist rounded-xl p-6 mb-8 text-center border border-cyan-100">
-                <p class="text-wedding-text font-medium mb-3 text-sm">สแกน QR Code เพื่อโอนเงิน</p>
+            <!-- Scrollable Content Area -->
+            <div class="flex-1 overflow-y-auto no-scrollbar p-6 md:p-10">
                 
-                <!-- QR Code Container -->
-                <div class="w-40 h-40 bg-white mx-auto p-2 rounded-lg shadow-sm mb-3 relative">
-                    <img src="./image/QR-PROMTPAY.JPG" 
-                         alt="Payment QR Code" 
-                         class="w-full h-full object-contain">
-                </div>
-                
-                <div class="text-xs text-gray-500 space-y-1">
-                    <p class="font-semibold text-wedding-ocean">ธนาคารกสิกร (KBank)</p>
-                    <p>ชื่อบัญชี: นายกนกศักดิ์ จันทร์ประเสริฐ</p>
-                    <p>เลขที่บัญชี: <span class="tracking-widest font-mono select-all bg-white px-2 py-0.5 rounded border border-gray-200 cursor-pointer" onclick="copyToClipboard('727-2-69057-4')">727-2-69057-4</span></p>
-                    <p class="text-[10px] text-gray-400 mt-1">(แตะที่เลขบัญชีเพื่อคัดลอก)</p>
-                </div>
-            </div>
-
-            <!-- Form Section -->
-            <form id="weddingForm" class="space-y-5">
-                
-                <!-- Guest Name -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-นามสกุล (แขกผู้มีเกียรติ)</label>
-                    <input type="text" name="guestName" required placeholder="ชื่อ นามสกุล"
-                           class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-wedding-ocean focus:ring-2 focus:ring-wedding-ocean/20 outline-none transition text-sm">
-                </div>
-
-                <!-- Guest Side (Radio) -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">ท่านเป็นแขกของ</label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <label class="cursor-pointer">
-                            <input type="radio" name="guestSide" value="Groom" class="peer sr-only" required>
-                            <div class="text-center py-2.5 px-4 rounded-lg border border-gray-300 text-gray-500 peer-checked:border-wedding-ocean peer-checked:bg-wedding-mist peer-checked:text-wedding-ocean transition text-sm">
-                                🤵 ฝั่งเจ้าบ่าว
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" name="guestSide" value="Bride" class="peer sr-only">
-                            <div class="text-center py-2.5 px-4 rounded-lg border border-gray-300 text-gray-500 peer-checked:border-wedding-ocean peer-checked:bg-wedding-mist peer-checked:text-wedding-ocean transition text-sm">
-                                👰 ฝั่งเจ้าสาว
-                            </div>
-                        </label>
+                <!-- Header Text -->
+                <div class="text-center md:text-left mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <h2 class="font-serif text-3xl md:text-4xl text-wedding-ocean font-bold">Honeymoon Fund</h2>
+                        <div class="w-16 h-1 bg-wedding-sand mt-2 rounded-full mx-auto md:mx-0"></div>
                     </div>
+                    <p class="text-gray-400 text-xs md:text-sm font-light">#KobYingWeddingDay2026</p>
                 </div>
 
-                <!-- Slip Upload -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">แนบสลิปโอนเงิน</label>
-                    <div class="file-upload-wrapper" id="dropZone">
-                        <div class="text-center p-4 pointer-events-none" id="uploadPlaceholder">
-                            <svg class="mx-auto h-8 w-8 text-wedding-ocean mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span class="text-sm text-gray-500">แตะเพื่อเลือกรูปภาพสลิป</span>
+                <!-- Changed Layout: Vertical Stack (flex-col) instead of Grid -->
+                <div class="flex flex-col gap-6 mb-8">
+                    <!-- Bank Info Section -->
+                    <div class="w-full">
+                        <div class="bg-wedding-mist rounded-xl p-5 border border-cyan-100 flex flex-col justify-center text-center md:text-left shadow-sm">
+                            <p class="text-xs text-wedding-ocean font-bold uppercase tracking-wider mb-2">ข้อมูลการโอนเงิน</p>
+                            
+                            <!-- Bank Details -->
+                            <div class="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-4">
+                                <div class="whitespace-nowrap">
+                                    <h3 class="font-bold text-gray-800 text-lg">ธนาคารกสิกร (KBank)</h3>
+                                    <p class="text-gray-600 text-sm mb-3">นายกนกศักดิ์ จันทร์ประเสริฐ</p>
+                                </div>
+                                
+                                <div class="flex flex-col items-center xl:items-end w-full xl:w-auto">
+                                    <div class="bg-white p-2 rounded-lg border border-cyan-200 inline-flex items-center gap-3 shadow-inner cursor-pointer hover:border-wedding-ocean transition group w-full justify-center xl:w-auto" onclick="copyToClipboard('727-2-69057-4')">
+                                        <span class="font-mono text-xl text-wedding-ocean font-bold tracking-wider px-2 whitespace-nowrap">727-2-69057-4</span>
+                                        <button class="text-gray-400 group-hover:text-wedding-ocean transition flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="select-all text-[10px] text-gray-400 mt-1 h-4">แตะเพื่อคัดลอก</div>
+                                </div>
+                            </div>
                         </div>
-                        <img id="imagePreview" class="absolute w-full h-full object-contain bg-white hidden" />
-                        <input type="file" name="slipFile" accept="image/*" class="file-upload-input" onchange="previewImage(this)" required>
+                    </div>
+
+                    <!-- QR Code Section (Separate Row) -->
+                    <div class="w-full">
+                        <div class="bg-wedding-mist/30 rounded-xl p-4 border border-cyan-50 flex flex-row items-center justify-center gap-6 shadow-sm">
+                            <div class="text-center md:text-left">
+                                <p class="text-sm font-bold text-wedding-ocean mb-1">สแกน QR Code</p>
+                                <p class="text-xs text-gray-500">เพื่อโอนเงินเข้าบัญชีโดยตรง</p>
+                            </div>
+                            <div class="w-24 h-24 bg-white p-2 rounded-lg shadow-md border border-gray-100 relative group">
+                                <div class="absolute inset-0 bg-wedding-ocean/10 opacity-0 group-hover:opacity-100 transition rounded-lg pointer-events-none"></div>
+                                <img src="./image/QR-PROMTPAY.JPG" 
+                                     alt="Payment QR Code" 
+                                     class="w-full h-full object-contain">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Wishes -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">คำอวยพร (Optional)</label>
-                    <textarea name="wishes" rows="3" placeholder="เขียนคำอวยพรถึงคู่บ่าวสาว..."
-                              class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-wedding-ocean focus:ring-2 focus:ring-wedding-ocean/20 outline-none transition text-sm resize-none"></textarea>
+                <!-- Form Section -->
+                <form id="weddingForm" class="space-y-5 border-t border-gray-100 pt-6">
+                    <h3 class="text-lg font-serif text-wedding-text font-semibold mb-2">แจ้งการโอนเงิน & อวยพร</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <!-- Guest Name -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">ชื่อ-นามสกุล</label>
+                            <input type="text" name="guestName" required placeholder="ระบุชื่อของคุณ"
+                                   class="w-full px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-wedding-ocean focus:ring-2 focus:ring-wedding-ocean/20 outline-none transition text-sm">
+                        </div>
+
+                        <!-- Guest Side (Radio) -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">แขกฝั่ง</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="guestSide" value="Groom" class="peer sr-only" required>
+                                    <div class="text-center py-2 px-2 rounded-lg border border-gray-200 text-gray-500 text-sm peer-checked:border-wedding-ocean peer-checked:bg-wedding-mist peer-checked:text-wedding-ocean transition hover:bg-gray-50">
+                                        🤵 เจ้าบ่าว
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="guestSide" value="Bride" class="peer sr-only">
+                                    <div class="text-center py-2 px-2 rounded-lg border border-gray-200 text-gray-500 text-sm peer-checked:border-wedding-ocean peer-checked:bg-wedding-mist peer-checked:text-wedding-ocean transition hover:bg-gray-50">
+                                        👰 เจ้าสาว
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <!-- Slip Upload -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">หลักฐานการโอน</label>
+                            <div class="file-upload-wrapper h-24" id="dropZone">
+                                <div class="text-center p-4 pointer-events-none" id="uploadPlaceholder">
+                                    <svg class="mx-auto h-6 w-6 text-wedding-ocean mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    <span class="text-xs text-gray-500">คลิกเพื่อแนบสลิป</span>
+                                </div>
+                                <img id="imagePreview" class="absolute w-full h-full object-contain bg-white hidden" />
+                                <input type="file" name="slipFile" accept="image/*" class="file-upload-input" onchange="previewImage(this)" required>
+                            </div>
+                        </div>
+
+                        <!-- Wishes -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">คำอวยพร</label>
+                            <textarea name="wishes" rows="3" placeholder="เขียนคำอวยพร..."
+                                      class="w-full h-24 px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-wedding-ocean focus:ring-2 focus:ring-wedding-ocean/20 outline-none transition text-sm resize-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button type="submit" id="submitBtn" 
+                                class="w-full bg-wedding-ocean hover:bg-cyan-700 text-white font-medium py-3 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                            <span>ยืนยันข้อมูล</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Footer Mobile (Desktop Hidden inside scroll) -->
+                <div class="mt-8 text-center md:hidden">
+                    <p class="font-serif text-wedding-sand text-lg italic">Thank you</p>
                 </div>
 
-                <!-- Submit Button -->
-                <button type="submit" id="submitBtn" 
-                        class="w-full bg-wedding-ocean hover:bg-cyan-600 text-white font-medium py-3 rounded-lg shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
-                    <span>ส่งข้อมูลร่วมยินดี</span>
-                </button>
-            </form>
-        </div>
-
-        <!-- Footer -->
-        <div class="bg-gray-50 py-4 text-center border-t border-gray-100">
-            <p class="font-serif text-wedding-sand text-lg italic">Thank you</p>
-            <p class="text-[10px] text-gray-400">#KobYingWeddingDay2026</p>
+            </div>
+            
+            <!-- Desktop Footer (Fixed at bottom right) -->
+            <div class="hidden md:block absolute bottom-0 right-0 p-4 bg-white/90 backdrop-blur rounded-tl-xl text-right">
+                <p class="font-serif text-wedding-sand italic text-sm">Thank you for your kindness</p>
+            </div>
         </div>
     </div>
 
@@ -212,15 +275,12 @@
     </div>
 
     <script>
-        // Copy to clipboard function (Fix for iFrame permissions)
+        // Copy to clipboard function (Robust version)
         function copyToClipboard(text) {
             const rawText = text.replace(/-/g, '');
-            
-            // Create a temporary textarea to hold the text
             const textArea = document.createElement("textarea");
             textArea.value = rawText;
             
-            // Avoid scrolling to bottom
             textArea.style.top = "0";
             textArea.style.left = "0";
             textArea.style.position = "fixed";
@@ -231,27 +291,22 @@
             textArea.select();
             
             try {
-                // Execute the copy command
                 const successful = document.execCommand('copy');
                 if (successful) {
                     const element = document.querySelector('.select-all');
-                    
                     element.innerText = "คัดลอกแล้ว!";
-                    element.classList.add('bg-green-100', 'text-green-700', 'border-green-300');
+                    element.classList.add('text-green-600', 'font-bold');
                     
                     setTimeout(() => {
-                        element.innerText = text;
-                        element.classList.remove('bg-green-100', 'text-green-700', 'border-green-300');
+                        element.innerText = "แตะเพื่อคัดลอก";
+                        element.classList.remove('text-green-600', 'font-bold');
                     }, 1500);
                 } else {
-                    console.error('Fallback: Copying text command was unsuccessful');
-                    alert('ไม่สามารถคัดลอกได้อัตโนมัติ กรุณาคัดลอกด้วยตนเอง');
+                    alert('ไม่สามารถคัดลอกได้อัตโนมัติ');
                 }
             } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
-                alert('ไม่สามารถคัดลอกได้อัตโนมัติ กรุณาคัดลอกด้วยตนเอง');
+                alert('ไม่สามารถคัดลอกได้อัตโนมัติ');
             }
-            
             document.body.removeChild(textArea);
         }
 
