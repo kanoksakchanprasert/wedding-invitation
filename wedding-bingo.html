@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Bingo Projector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap');
+        body { font-family: 'Anuphan', sans-serif; }
+        
+        /* Animation for Projector View */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .word-pop { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- ========================================== -->
+    <!-- ส่วนของ ADMIN (Projector Mode)            -->
+    <!-- เข้าใช้งานโดยเติม ?admin=true ต่อท้าย URL   -->
+    <!-- ========================================== -->
+    <div id="admin-view" class="hidden min-h-screen flex flex-col bg-white">
+        <!-- Control Bar (ส่วนควบคุม แอดมินกดตรงนี้) -->
+        <div class="bg-white border-b border-slate-200 p-4 flex flex-wrap gap-4 items-center justify-between shadow-sm z-50 relative">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold text-rose-600 flex items-center gap-2">
+                    <i data-lucide="monitor-play"></i> Admin Panel
+                </h1>
+                <span id="round-display" class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">
+                    ยังไม่เริ่มรอบ
+                </span>
+            </div>
+            
+            <div class="flex gap-2">
+                <button onclick="toggleFullScreen()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-2 rounded-lg transition-colors" title="Full Screen">
+                    <i data-lucide="expand" size="18"></i>
+                </button>
+                <button onclick="adminNewRound()" id="btn-new-round" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
+                    <i data-lucide="plus-circle" size="16"></i> รอบใหม่
+                </button>
+                <button onclick="adminDrawWord()" id="btn-draw" class="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i data-lucide="dices" size="16"></i> สุ่มคำ
+                </button>
+            </div>
+        </div>
+
+        <!-- Projector Display Area (ส่วนแสดงผลขึ้นจอ) -->
+        <div class="flex-1 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-rose-50 to-pink-100 relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute top-10 left-10 text-rose-200 opacity-50 animate-pulse"><i data-lucide="heart" size="120"></i></div>
+            <div class="absolute bottom-10 right-10 text-rose-200 opacity-50 animate-bounce" style="animation-duration: 3s;"><i data-lucide="sparkles" size="120"></i></div>
+
+            <!-- Current Word Display -->
+            <div class="text-center z-10 w-full">
+                <p class="text-rose-400 text-2xl font-bold mb-6 uppercase tracking-[0.2em] drop-shadow-sm">Current Word</p>
+                <div id="projector-word" class="text-8xl md:text-[10rem] font-black text-slate-800 drop-shadow-2xl min-h-[12rem] flex items-center justify-center leading-none transition-all">
+                    ...
+                </div>
+            </div>
+
+            <!-- History Strip (ประวัติคำด้านล่างจอ) -->
+            <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md p-6 border-t border-rose-100 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+                <div class="flex items-center gap-3 overflow-x-auto pb-2 px-4 max-w-[90vw] mx-auto scrollbar-hide" id="projector-history">
+                    <span class="text-slate-400 text-lg italic w-full text-center">ประวัติคำที่สุ่มจะปรากฏที่นี่...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- ส่วนของ CLIENT (Guest Mode)               -->
+    <!-- เข้าใช้งานโดย URL ปกติ                      -->
+    <!-- ========================================== -->
+    <div id="guest-view" class="hidden min-h-screen p-4 pb-20 max-w-md mx-auto relative">
+        <header class="text-center mb-6 pt-4">
+            <h1 class="text-3xl font-bold text-rose-600 flex items-center justify-center gap-2">
+                <i data-lucide="heart-handshake"></i> Wedding Bingo
+            </h1>
+            <p class="text-slate-400 text-xs mt-1 flex items-center justify-center gap-1">
+                <span id="wakelock-status" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                ดูคำศัพท์บนจอ แล้วติ๊กให้ทันนะครับ!
+            </p>
+        </header>
+
+        <!-- Bingo Alert -->
+        <div id="bingo-alert" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div class="bg-white rounded-3xl p-8 text-center shadow-2xl animate-in zoom-in-50 duration-300 border-4 border-rose-400 max-w-xs w-full relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full bg-rose-50 -z-10 opacity-50"></div>
+                <i data-lucide="party-popper" class="text-amber-500 w-20 h-20 mx-auto mb-4 animate-bounce"></i>
+                <h2 class="text-4xl font-black text-rose-600 mb-2">BINGO!</h2>
+                <p class="text-slate-600 mb-8 text-lg font-medium">ยินดีด้วย! คุณคือผู้โชคดี<br>รีบยกมือบอกพิธีกรเลย</p>
+                <button onclick="document.getElementById('bingo-alert').classList.add('hidden')" class="bg-gradient-to-r from-rose-500 to-pink-600 text-white text-lg px-8 py-3 rounded-full font-bold w-full shadow-lg hover:shadow-xl transition-all active:scale-95">
+                    ตกลง
+                </button>
+            </div>
+        </div>
+
+        <!-- Bingo Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-3 border-4 border-rose-200 mb-6 relative">
+            <!-- Grid -->
+            <div id="bingo-grid" class="grid grid-cols-4 gap-2">
+                <!-- Grid items generated by JS -->
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="text-center space-y-4">
+            <button onclick="clientNewCard()" class="w-full bg-white hover:bg-slate-50 text-slate-500 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-colors border-2 border-slate-100 shadow-sm">
+                <i data-lucide="refresh-cw" size="16"></i> ขอกระดานใหม่ (เล่นรอบถัดไป)
+            </button>
+            <p class="text-[10px] text-slate-400 opacity-70">
+                * กดปุ่มนี้เมื่อพิธีกรประกาศเริ่มรอบใหม่เท่านั้น<br>
+                กระดานเก่าของคุณจะถูกลบและแทนที่ด้วยกระดานใหม่
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- LOGIC SCRIPT                               -->
+    <!-- ========================================== -->
+    <script>
+        // -----------------------------------------------------
+        // CONFIGURATION: ใส่ URL ที่ได้จาก Apps Script ตรงนี้
+        // -----------------------------------------------------
+        const SCRIPT_URL = "วาง_URL_APPS_SCRIPT_ที่นี่"; 
+
+        const WORD_POOL = [
+            "เจ้าบ่าว", "เจ้าสาว", "แหวน", "ตัดเค้ก", "หอมแก้ม", 
+            "ดอกไม้", "เพื่อนเจ้าสาว", "เพื่อนเจ้าบ่าว", "ไชโย", "อวยพร", 
+            "คล้องมาลัย", "รักนิรันดร์", "VDO", "ดนตรีสด", "ของชำร่วย", 
+            "ถ่ายรูป", "ประธาน", "รอยยิ้ม", "น้ำตาแห่งความสุข", "ประตูเงิน", 
+            "ประตูทอง", "ซอง", "สมุดอวยพร", "แชมเปญ", "โยนดอกไม้", 
+            "พรีเวดดิ้ง", "สัญญา", "แขกผู้ใหญ่", "งานเลี้ยง", "เนื้อคู่"
+        ];
+
+        // Global State
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('admin') === 'true';
+
+        // Admin State
+        let drawnHistory = [];
+        let currentRoundName = "Round ?";
+
+        // Client State
+        let myCard = [];
+        let markedIndices = [];
+
+        // --- INIT ---
+        window.onload = function() {
+            lucide.createIcons();
+            if (isAdmin) {
+                document.getElementById('admin-view').classList.remove('hidden');
+            } else {
+                document.getElementById('guest-view').classList.remove('hidden');
+                clientLoadCard();
+                requestWakeLock(); // ขอไม่ให้จอดับ
+            }
+        };
+
+
+        // ==========================================
+        // ADMIN FUNCTIONS
+        // ==========================================
+        
+        async function adminNewRound() {
+            if(!confirm("ยืนยันการเริ่มรอบใหม่? (Sheet ใหม่จะถูกสร้าง)")) return;
+            
+            const btn = document.getElementById('btn-new-round');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="animate-spin">⌛</span> Creating...`;
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData();
+                formData.append('action', 'new_round');
+                await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+                
+                drawnHistory = [];
+                currentRoundName = "New Round";
+                document.getElementById('projector-word').innerText = "พร้อม!";
+                document.getElementById('projector-history').innerHTML = `<span class="text-slate-400 text-lg italic w-full text-center">เริ่มรอบใหม่แล้ว...</span>`;
+                document.getElementById('round-display').innerText = "รอบใหม่เริ่มแล้ว";
+                alert("สร้างรอบใหม่เรียบร้อย!");
+
+            } catch (e) {
+                console.error(e); // Ignore errors in simple mode
+                // Still reset UI even if fetch fails visually
+                drawnHistory = [];
+                document.getElementById('projector-word').innerText = "พร้อม!";
+                document.getElementById('projector-history').innerHTML = "";
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function adminDrawWord() {
+            const btn = document.getElementById('btn-draw');
+            
+            const remaining = WORD_POOL.filter(w => !drawnHistory.includes(w));
+            if(remaining.length === 0) { alert("หมดคำศัพท์แล้ว!"); return; }
+
+            const word = remaining[Math.floor(Math.random() * remaining.length)];
+            
+            // UI Update
+            const displayEl = document.getElementById('projector-word');
+            displayEl.classList.remove('word-pop');
+            void displayEl.offsetWidth; 
+            displayEl.innerText = word;
+            displayEl.classList.add('word-pop');
+
+            drawnHistory.push(word);
+            updateAdminHistoryUI();
+
+            // Save to Sheet
+            btn.disabled = true;
+            try {
+                const formData = new FormData();
+                formData.append('action', 'add');
+                formData.append('word', word);
+                fetch(SCRIPT_URL, { method: 'POST', body: formData }); 
+            } catch(e) { console.error(e); } 
+            finally { setTimeout(() => btn.disabled = false, 800); }
+        }
+
+        function updateAdminHistoryUI() {
+            const container = document.getElementById('projector-history');
+            const recent = drawnHistory.slice().reverse(); 
+            
+            container.innerHTML = recent.map((w, i) => `
+                <div class="flex-shrink-0 bg-white border-2 px-6 py-3 rounded-xl shadow-sm text-slate-700 font-bold text-xl min-w-[100px] text-center
+                    ${i===0 ? 'border-rose-500 text-rose-600 ring-4 ring-rose-100 scale-105 transform' : 'border-rose-100 opacity-70'}">
+                    ${w}
+                </div>
+            `).join('');
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+
+        // ==========================================
+        // CLIENT FUNCTIONS (OFFLINE + WAKELOCK)
+        // ==========================================
+
+        // ฟังก์ชันกันจอดับ (Wake Lock API)
+        let wakeLock = null;
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    document.getElementById('wakelock-status').className = "w-2 h-2 rounded-full bg-green-500";
+                    console.log('Screen Wake Lock active');
+                }
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+                document.getElementById('wakelock-status').className = "w-2 h-2 rounded-full bg-amber-500";
+            }
+        }
+        // ขอใหม่ถ้าสลับแอปแล้วกลับมา
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                await requestWakeLock();
+            }
+        });
+
+        function clientLoadCard() {
+            const savedCard = localStorage.getItem('bingo_card_v2');
+            const savedMarks = localStorage.getItem('bingo_marks_v2');
+
+            if (savedCard) {
+                myCard = JSON.parse(savedCard);
+                markedIndices = savedMarks ? JSON.parse(savedMarks) : [];
+            } else {
+                clientGenerateCard();
+            }
+            clientRenderGrid();
+        }
+
+        function clientGenerateCard() {
+            myCard = [...WORD_POOL].sort(() => 0.5 - Math.random()).slice(0, 16);
+            markedIndices = [];
+            clientSave();
+        }
+
+        function clientNewCard() {
+            if(!confirm("ต้องการล้างกระดานเพื่อเล่นรอบใหม่ใช่ไหม?")) return;
+            clientGenerateCard();
+            clientRenderGrid();
+        }
+
+        function clientSave() {
+            localStorage.setItem('bingo_card_v2', JSON.stringify(myCard));
+            localStorage.setItem('bingo_marks_v2', JSON.stringify(markedIndices));
+        }
+
+        function clientRenderGrid() {
+            const grid = document.getElementById('bingo-grid');
+            grid.innerHTML = '';
+            myCard.forEach((word, idx) => {
+                const isMarked = markedIndices.includes(idx);
+                const btn = document.createElement('button');
+                btn.className = `aspect-square p-1 text-xs sm:text-sm font-medium rounded-xl border-2 transition-all duration-150 flex items-center justify-center text-center leading-tight shadow-sm select-none
+                    ${isMarked 
+                        ? 'bg-rose-500 text-white border-rose-600 transform scale-[0.95] shadow-inner font-bold' 
+                        : 'bg-white text-slate-600 border-slate-100 hover:border-rose-200 active:scale-95'}`;
+                btn.innerText = word;
+                btn.onclick = () => clientToggle(idx);
+                grid.appendChild(btn);
+            });
+        }
+
+        function clientToggle(idx) {
+            if (markedIndices.includes(idx)) {
+                markedIndices = markedIndices.filter(i => i !== idx);
+            } else {
+                markedIndices.push(idx);
+            }
+            clientSave();
+            clientRenderGrid();
+            clientCheckBingo();
+        }
+
+        function clientCheckBingo() {
+            const lines = [
+                [0,1,2,3], [4,5,6,7], [8,9,10,11], [12,13,14,15], 
+                [0,4,8,12], [1,5,9,13], [2,6,10,14], [3,7,11,15], 
+                [0,5,10,15], [3,6,9,12] 
+            ];
+            const isBingo = lines.some(line => line.every(i => markedIndices.includes(i)));
+            
+            if (isBingo) {
+                const alertEl = document.getElementById('bingo-alert');
+                if (alertEl.classList.contains('hidden')) {
+                    alertEl.classList.remove('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
