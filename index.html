@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +7,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- เพิ่มฟอนต์ Great Vibes สำหรับตัวเขียนแบบเถาวัลย์ -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans Thai', sans-serif;
-            /* **กลับมาใช้พื้นหลังแบบไล่สีเคลื่อนไหว (Animated Gradient)** */
-            background: linear-gradient(-45deg, #f8cdda, #c4def5, #d9cce6, #cce4de);
-            background-size: 400% 400%;
-            animation: gradientBG 18s ease infinite;
-            color: #5D5D5D; /* Dark grey for text */
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            /* พื้นหลังแบบ Mesh Gradient ที่มีสีสันเพื่อขับเน้น Effect กระจก */
+            background-color: #fce7f3;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0) 0, transparent 50%), 
+                radial-gradient(at 80% 50%, hsla(320, 90%, 85%, 1) 0, transparent 50%), 
+                radial-gradient(at 0% 100%, hsla(220, 80%, 90%, 1) 0, transparent 50%), 
+                radial-gradient(at 80% 100%, hsla(240, 50%, 90%, 1) 0, transparent 50%), 
+                radial-gradient(at 0% 0%, hsla(340, 80%, 90%, 1) 0, transparent 50%);
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            color: #4a4a4a;
+            padding-bottom: 90px;
         }
 
         h1, h2, h3, .font-display {
             font-family: 'Cormorant Garamond', serif;
         }
+
+        /* ฟอนต์แบบเถาวัลย์ (Vine Style) */
+        .font-vine {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            border-radius: 1.5rem;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -36,478 +64,521 @@
             opacity: 1;
             transform: translateY(0);
         }
-        #modalContent, #giftingModalContent {
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
+
         main > section {
-            /* **กลับมาใช้พื้นหลังแบบกระจกฝ้า (Translucent)** */
-            background-color: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
+            /* CSS Properties สำหรับ Glass Panel */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
             border-radius: 1.5rem;
+            
             padding: 2.5rem;
             margin-bottom: 4rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        /* For gallery slider */
+
+        /* Slider */
         .slider-container {
             scroll-behavior: smooth;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         .slider-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
+            display: none;
+        }
+        
+        /* Glossy Icon Wrapper */
+        .flat-icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            
+            /* Glassy Icon Effect */
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            
+            transition: transform 0.3s ease;
+        }
+        .flat-icon-wrapper:hover {
+            transform: scale(1.05);
+        }
+        
+        /* ปรับสี Icon ให้เข้มขึ้นนิดนึงเพื่อให้เห็นชัดบนพื้นกระจก */
+        .flat-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        /* Utility for text readability on glass */
+        .text-glass-dark {
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- Navigation Menu (iOS Glass Style) -->
+    <nav class="glass-nav fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 px-4 py-2 rounded-full flex gap-2 sm:gap-3 items-center max-w-[95vw] overflow-x-auto">
+        <a href="#home" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            <span class="font-medium">Home</span>
+        </a>
+        <a href="#event" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span class="font-medium">Event</span>
+        </a>
+        <a href="#rsvp" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <span class="font-medium">RSVP</span>
+        </a>
+        <a href="#bingo" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+            <span class="font-medium">Bingo</span>
+        </a>
+        <a href="#guestbook" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+            <span class="font-medium">Wish</span>
+        </a>
+        <a href="#gift" class="flex flex-col items-center p-2 rounded-xl hover:bg-white/40 transition text-[10px] sm:text-xs text-gray-600 min-w-[45px]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-0.5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+            <span class="font-medium">Gift</span>
+        </a>
+    </nav>
+
     <!-- Hero Section -->
-    <header class="relative text-center text-white h-screen min-h-[600px] flex flex-col justify-center items-center">
+    <header id="home" class="relative text-center text-white h-screen min-h-[600px] flex flex-col justify-center items-center">
         <!-- Placeholder for main wedding photo -->
         <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('gallery/DSC05920.jpg');">
             <div class="absolute inset-0 bg-black opacity-30"></div>
         </div>
         <div class="relative z-10 p-8 fade-in" id="hero-content">
-            <p class="text-lg md:text-2xl tracking-widest">WE ARE GETTING MARRIED</p>
-            <h1 class="font-display text-6xl md:text-9xl my-4">Kob & Ying</h1>
-            <p class="text-lg md:text-2xl tracking-widest">SAVE THE DATE</p>
+            <h1 class="font-display text-5xl md:text-8xl my-4 drop-shadow-lg">Kob & Ying</h1>
+            <!-- เพิ่มข้อความใหม่พร้อมฟอนต์เถาวัลย์ และปรับขนาดให้เล็กลง -->
+            <p class="font-vine text-2xl md:text-4xl mt-2 drop-shadow-md text-white/90">Our Journey: From Daylight to City Lights</p>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto p-5 md:p-10">
+    <main class="max-w-4xl mx-auto p-5 md:p-10 pt-16">
         
         <!-- Greeting Message -->
-        <section class="text-center fade-in">
-            <p class="text-lg leading-relaxed mb-12">
+        <section class="text-center fade-in glass-panel">
+            <p class="text-lg leading-relaxed mb-12 text-glass-dark">
                 เมื่อเราสองคนได้พบความรักที่สมบูรณ์แบบ<br>
                 เราจึงอยากเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในช่วงเวลาที่แสนพิเศษ<br>
                 เพื่อเฉลิมฉลองการเริ่มต้นชีวิตคู่ของเรา
             </p>
             <!-- Groom Message -->
             <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
-                <div class="w-full md:w-1/2 rounded-lg overflow-hidden shadow-lg">
-                    <!-- รูปเจ้าบ่าว -->
-                    <img src="gallery\DSC04835.jpg" alt="Groom's Photo" class="w-full h-full object-cover">
+                <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500 border-4 border-white/50">
+                    <img src="gallery/DSC04835.jpg" alt="Groom's Photo" class="w-full h-full object-cover">
                 </div>
-                <div class="w-full md:w-1/2 text-left p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#D1E8F7]">
-                    <h3 class="font-display text-2xl mb-2 text-[#83A9C0]">From the Groom</h3>
-                    <p class="text-gray-600">"TBC - ข้อความจากเจ้าบ่าว สามารถแก้ไขได้ที่นี่"</p>
-                    <p class="font-display text-xl text-right mt-4">- Kob</p>
+                <div class="w-full md:w-1/2 text-left p-8 glass-panel relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#83A9C0]"></div>
+                    <h3 class="font-display text-3xl mb-3 text-[#5d8aa6]">From the Groom</h3>
+                    <p class="text-gray-700 leading-relaxed italic">"สำหรับผม... การแต่งงานเปรียบเสมือนเส้นขนานที่ดูเหมือนจะไม่มีวันบรรจบกัน แต่ถ้ามีอะไรมาทำให้เส้นขนานมาเจอกันได้... ผมขอเรียกสิ่งนั้นว่า 'ปาฏิหาริย์'"</p>
+                    <p class="font-display text-xl text-right mt-6 text-gray-800">- Kob</p>
                 </div>
             </div>
             <!-- Bride Message -->
             <div class="flex flex-col md:flex-row items-center gap-8">
-                <div class="w-full md:w-1/2 text-left p-6 bg-white rounded-lg shadow-lg border-l-4 border-[#FADADD] order-2 md:order-1">
-                    <h3 class="font-display text-2xl mb-2 text-[#D98BA0]">From the Bride</h3>
-                    <p class="text-gray-600">"TBC - ข้อความจากเจ้าสาว สามารถแก้ไขได้ที่นี่"</p>
-                    <p class="font-display text-xl text-right mt-4">- Ying</p>
+                <div class="w-full md:w-1/2 text-left p-8 glass-panel order-2 md:order-1 relative overflow-hidden">
+                     <div class="absolute top-0 left-0 w-2 h-full bg-[#D98BA0]"></div>
+                    <h3 class="font-display text-3xl mb-3 text-[#c46982]">From the Bride</h3>
+                    <p class="text-gray-700 leading-relaxed italic">"ในโลกที่เต็มไปด้วยความสับสน เราพบรักกันด้วยหัวใจที่อ่อนโยน"</p>
+                    <p class="font-display text-xl text-right mt-6 text-gray-800">- Ying</p>
                 </div>
-                <div class="w-full md:w-1/2 rounded-lg overflow-hidden shadow-lg order-1 md:order-2">
-                     <!-- รูปเจ้าสาว -->
-                    <img src="gallery\DSC05834.jpg" alt="Bride's Photo" class="w-full h-full object-cover">
+                <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2 transform hover:scale-[1.02] transition-transform duration-500 border-4 border-white/50">
+                    <img src="gallery/DSC05834.jpg" alt="Bride's Photo" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
 
-        <!-- Date, Time, Location & Countdown -->
-        <section class="fade-in text-center">
-            <h2 class="font-display text-4xl md:text-5xl mb-8 flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Wedding Details
-            </h2>
+        <!-- Date, Time, Location -->
+        <section class="fade-in text-center glass-panel" id="wedding-details">
+            <div class="mb-10">
+                 <!-- Glass Icon: Rings/Details -->
+                 <div class="flat-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#FADADD]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                 </div>
+                 <h2 class="font-display text-4xl md:text-5xl text-glass-dark">Wedding Details</h2>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <!-- Date -->
-                <div class="bg-white/60 p-6 rounded-xl shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#D98BA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    <h3 class="font-display text-2xl">Date</h3>
-                    <p>วันเสาร์ ที่ 17 มกราคม 2569</p>
+                <div class="glass-panel p-8 hover:shadow-xl transition-shadow border border-white/60 bg-white/40">
+                    <div class="text-[#D98BA0] mb-4 flex justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-2 text-gray-800">Date</h3>
+                    <p class="text-gray-600">วันเสาร์ ที่ 17 มกราคม 2569</p>
                 </div>
                 <!-- Time -->
-                <div class="bg-white/60 p-6 rounded-xl shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#83A9C0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <h3 class="font-display text-2xl">Time</h3>
-                    <p>ตั้งแต่เวลา 17:00 น.</p>
+                <div class="glass-panel p-8 hover:shadow-xl transition-shadow border border-white/60 bg-white/40">
+                    <div class="text-[#83A9C0] mb-4 flex justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-2 text-gray-800">Time</h3>
+                    <p class="text-gray-600">ตั้งแต่เวลา 17:00 น.</p>
                 </div>
                 <!-- Location -->
-                <div class="bg-white/60 p-6 rounded-xl shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-[#6A8B82]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    <h3 class="font-display text-2xl">Location</h3>
-                    <p>Finn l'amour​ studio​</p>
+                <div class="glass-panel p-8 hover:shadow-xl transition-shadow border border-white/60 bg-white/40">
+                    <div class="text-[#6A8B82] mb-4 flex justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-2 text-gray-800">Location</h3>
+                    <p class="text-gray-600">Finn l'amour​ studio​</p>
                 </div>
             </div>
-            <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-block bg-[#D4E7E1] text-[#6A8B82] font-semibold py-2 px-6 rounded-full hover:bg-[#C0D9D2] transition-colors duration-300 mb-10">
+            
+            <a href="https://maps.app.goo.gl/UZu3xoBrK8CM3cZc8" target="_blank" class="inline-flex items-center gap-2 bg-[#6A8B82] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#59786F] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 backdrop-blur-md border border-white/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
                 ดูแผนที่บน Google Maps
             </a>
-            <hr class="border-t border-gray-400/30 w-1/2 mx-auto mb-10">
-            <h3 class="font-display text-3xl mb-4">Countdown to Our Big Day</h3>
-            <div id="countdown" class="flex justify-center space-x-2 md:space-x-4 text-center">
-                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
-                    <div id="days" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
-                    <div class="text-xs">วัน</div>
+
+            <div class="my-12">
+                <hr class="border-t-2 border-dashed border-gray-300/50 w-1/2 mx-auto">
+            </div>
+
+            <h3 class="font-display text-3xl mb-6 text-glass-dark">Countdown to Our Big Day</h3>
+            <div id="countdown" class="flex justify-center space-x-3 md:space-x-6 text-center">
+                <div class="glass-panel p-4 rounded-2xl w-20 md:w-28 shadow-lg border border-white/60 bg-white/50">
+                    <div id="days" class="font-display text-3xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-wide mt-1">Days</div>
                 </div>
-                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
-                    <div id="hours" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
-                    <div class="text-xs">ชั่วโมง</div>
+                <div class="glass-panel p-4 rounded-2xl w-20 md:w-28 shadow-lg border border-white/60 bg-white/50">
+                    <div id="hours" class="font-display text-3xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-wide mt-1">Hours</div>
                 </div>
-                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
-                    <div id="minutes" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
-                    <div class="text-xs">นาที</div>
+                <div class="glass-panel p-4 rounded-2xl w-20 md:w-28 shadow-lg border border-white/60 bg-white/50">
+                    <div id="minutes" class="font-display text-3xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-wide mt-1">Mins</div>
                 </div>
-                <div class="bg-white/50 p-3 md:p-4 rounded-lg w-20 md:w-24 shadow-sm">
-                    <div id="seconds" class="font-display text-4xl md:text-5xl text-[#D98BA0]">00</div>
-                    <div class="text-xs">วินาที</div>
+                <div class="glass-panel p-4 rounded-2xl w-20 md:w-28 shadow-lg border border-white/60 bg-white/50">
+                    <div id="seconds" class="font-display text-3xl md:text-5xl text-[#D98BA0]">00</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-wide mt-1">Secs</div>
                 </div>
             </div>
         </section>
         
-        <!-- Picture gallery panel 2 (Slider) -->
-        <section class="fade-in p-0 md:p-0 bg-transparent backdrop-filter-none">
-            <div class="relative shadow-xl rounded-2xl overflow-hidden">
-                <!-- Scrollable Container -->
+        <!-- Gallery Panel 2 -->
+        <section class="fade-in p-0 md:p-0 bg-transparent border-0 shadow-none backdrop-filter-none !bg-transparent !backdrop-blur-0 !box-shadow-none">
+            <div class="relative shadow-2xl rounded-3xl overflow-hidden border-4 border-white/60">
                 <div id="gallery2-container" class="slider-container flex overflow-x-scroll snap-x snap-mandatory">
-                    <!-- GALLERY 2: แก้ไข URL รูปภาพได้ที่นี่ -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery/DSC04702.jpg" alt="Gallery Photo 2.1" class="w-full h-full object-cover">
+                        <img src="gallery/DSC04702.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery\DSC04798.jpg" alt="Gallery Photo 2.2" class="w-full h-full object-cover">
+                        <img src="gallery/DSC04798.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery\DSC05991.jpg" alt="Gallery Photo 2.3" class="w-full h-full object-cover">
+                        <img src="gallery/DSC05991.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                         <img src="gallery\DSC05929.jpg" alt="Gallery Photo 2.4" class="w-full h-full object-cover">
+                         <img src="gallery/DSC05929.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                         <img src="gallery\DSC04772.jpg" alt="Gallery Photo 2.5" class="w-full h-full object-cover">
+                         <img src="gallery/DSC04772.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <!-- Navigation Buttons -->
-                <button id="gallery2-prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                <!-- Navigation -->
+                <button id="gallery2-prev" class="absolute z-20 top-1/2 left-4 transform -translate-y-1/2 glass-panel !p-3 !rounded-full hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button id="gallery2-next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                <button id="gallery2-next" class="absolute z-20 top-1/2 right-4 transform -translate-y-1/2 glass-panel !p-3 !rounded-full hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
             </div>
         </section>
 
         <!-- Dress Code -->
-        <section class="text-center fade-in">
-            <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4a1 1 0 001 1v1a1 1 0 002 0V5a1 1 0 00-1-1H4zM15 4a1 1 0 001-1V2a1 1 0 00-2 0v1a1 1 0 001 1zM7 8a1 1 0 000 2h6a1 1 0 100-2H7zM4 12a1 1 0 001 1h10a1 1 0 100-2H5a1 1 0 00-1 1zM4 16a1 1 0 001 1h10a1 1 0 100-2H5a1 1 0 00-1 1z" clip-rule="evenodd" /></svg>
-                Dress Code
-            </h2>
-            <p class="mb-6">แต่งกายด้วยสีพาสเทลที่สดใส เพื่อร่วมสร้างสีสันในวันพิเศษของเรา</p>
-            <div class="flex justify-center gap-2 md:gap-4 flex-wrap max-w-sm mx-auto">
-                <div class="w-16 h-16 rounded-full bg-[#FADADD] shadow-md transform hover:scale-110 transition-transform"></div>
-                <div class="w-16 h-16 rounded-full bg-[#D4E7E1] shadow-md transform hover:scale-110 transition-transform"></div>
-                <div class="w-16 h-16 rounded-full bg-[#E3D7F1] shadow-md transform hover:scale-110 transition-transform"></div>
-                <div class="w-16 h-16 rounded-full bg-[#D1E8F7] shadow-md transform hover:scale-110 transition-transform"></div>
-                <div class="w-16 h-16 rounded-full bg-[#FDE4CF] shadow-md transform hover:scale-110 transition-transform"></div>
-                <div class="w-16 h-16 rounded-full bg-[#FFF5C9] shadow-md transform hover:scale-110 transition-transform"></div>
+        <section class="text-center fade-in glass-panel">
+             <!-- Glass Icon: Shirt -->
+             <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#c4def5]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 2l-4-2-4 2-3.62 1.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23L16 2z"/>
+                </svg>
+             </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">Dress Code</h2>
+            <p class="mb-8 text-lg text-gray-600">แต่งกายด้วยสีพาสเทลที่สดใส เพื่อร่วมสร้างสีสันในวันพิเศษของเรา</p>
+            <div class="flex justify-center gap-4 flex-wrap max-w-lg mx-auto">
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#FADADD] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Pink</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#D4E7E1] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Green</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#E3D7F1] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Purple</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#D1E8F7] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Blue</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#FDE4CF] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Orange</span>
+                </div>
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#FFF5C9] shadow-lg transform group-hover:scale-110 transition-transform mb-2 border-2 border-white/70"></div>
+                    <span class="text-xs font-semibold text-gray-500">Yellow</span>
+                </div>
             </div>
         </section>
 
         <!-- Event Program -->
-        <section class="fade-in">
-             <h2 class="font-display text-4xl md:text-5xl mb-8 text-center flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
-                Event Program
-            </h2>
-            <div class="relative border-l-2 border-dashed border-[#E3D7F1] ml-4 md:ml-0 md:before:content-[''] md:before:absolute md:before:left-1/2 md:before:top-0 md:before:h-full md:before:w-0.5 md:before:bg-[#E3D7F1]">
-                <!-- Timeline Item -->
-                <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                    <div class="order-1 md:w-5/12"></div>
-                    <div class="z-10 flex items-center order-1 bg-[#E3D7F1] shadow-xl w-12 h-12 rounded-full">
-                        <h3 class="mx-auto font-semibold text-lg text-white">1</h3>
+        <section id="event" class="fade-in glass-panel">
+             <div class="text-center mb-10">
+                <!-- Glass Icon: Clock/Event -->
+                <div class="flat-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#E3D7F1]" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl text-glass-dark">Event Program</h2>
+             </div>
+
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 h-full w-0.5 border-l-2 border-dashed border-gray-400/40"></div>
+
+                <!-- Timeline 1 -->
+                <div class="mb-8 flex md:justify-between items-center w-full">
+                    <div class="hidden md:block md:w-5/12"></div> 
+                    <div class="z-10 absolute left-6 md:static md:left-auto transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-12 h-12 bg-[#E3D7F1]/90 backdrop-blur-sm ring-4 ring-white/70 shadow-lg rounded-full shrink-0">
+                        <span class="font-bold text-white text-shadow-sm">1</span>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
-                        <p class="font-bold text-gray-800">17:00</p>
-                        <p class="text-sm text-gray-600">ถ่ายรูป</p>
+                    <div class="w-full md:w-5/12 pl-14 md:pl-0">
+                         <div class="glass-panel p-4 hover:shadow-xl transition-shadow relative border border-white/60 bg-white/40">
+                            <p class="font-bold text-gray-800 text-lg">17:00</p>
+                            <p class="text-gray-600">ถ่ายรูปหน้างาน</p>
+                         </div>
                     </div>
                 </div>
-                 <!-- Timeline Item -->
-                <div class="mb-8 flex justify-between md:flex-row-reverse items-center w-full left-timeline">
-                    <div class="order-1 md:w-5/12"></div>
-                    <div class="z-10 flex items-center order-1 bg-[#D1E8F7] shadow-xl w-12 h-12 rounded-full">
-                        <h3 class="mx-auto font-semibold text-lg text-white">2</h3>
+                
+                 <!-- Timeline 2 -->
+                <div class="mb-8 flex md:flex-row-reverse md:justify-between items-center w-full">
+                    <div class="hidden md:block md:w-5/12"></div>
+                    <div class="z-10 absolute left-6 md:static md:left-auto transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-12 h-12 bg-[#D1E8F7]/90 backdrop-blur-sm ring-4 ring-white/70 shadow-lg rounded-full shrink-0">
+                        <span class="font-bold text-white text-shadow-sm">2</span>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
-                        <p class="font-bold text-gray-800">18:00</p>
-                        <p class="text-sm text-gray-600">ต้อนรับแขก</p>
-                    </div>
-                </div>
-                 <!-- Timeline Item -->
-                 <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                    <div class="order-1 md:w-5/12"></div>
-                    <div class="z-10 flex items-center order-1 bg-[#FADADD] shadow-xl w-12 h-12 rounded-full">
-                        <h3 class="mx-auto font-semibold text-lg text-white">3</h3>
-                    </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/1LED px-6 py-4">
-                        <p class="font-bold text-gray-800">19:00 - 19:30</p>
-                        <p class="text-sm text-gray-600">เปิดตัวเจ้าบ่าว-เจ้าสาว และพิธีแลกแหวน</p>
+                    <div class="w-full md:w-5/12 pl-14 md:pl-0">
+                        <div class="glass-panel p-4 hover:shadow-xl transition-shadow md:text-right border border-white/60 bg-white/40">
+                            <p class="font-bold text-gray-800 text-lg">18:00</p>
+                            <p class="text-gray-600">ต้อนรับแขกเข้าสู่งาน</p>
+                        </div>
                     </div>
                 </div>
-                 <!-- Timeline Item -->
-                 <div class="mb-8 flex justify-between md:flex-row-reverse items-center w-full left-timeline">
-                    <div class="order-1 md:w-5/12"></div>
-                    <div class="z-10 flex items-center order-1 bg-[#FDE4CF] shadow-xl w-12 h-12 rounded-full">
-                        <h3 class="mx-auto font-semibold text-lg text-white">4</h3>
+                
+                 <!-- Timeline 3 -->
+                 <div class="mb-8 flex md:justify-between items-center w-full">
+                    <div class="hidden md:block md:w-5/12"></div>
+                    <div class="z-10 absolute left-6 md:static md:left-auto transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-12 h-12 bg-[#FADADD]/90 backdrop-blur-sm ring-4 ring-white/70 shadow-lg rounded-full shrink-0">
+                        <span class="font-bold text-white text-shadow-sm">3</span>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
-                        <p class="font-bold text-gray-800">19:45 - 21:00</p>
-                        <p class="text-sm text-gray-600">รินอิตาเลี่ยนโซดา, พิธีโยนดอกไม้ และกิจกรรม</p>
+                    <div class="w-full md:w-5/12 pl-14 md:pl-0">
+                        <div class="glass-panel p-4 hover:shadow-xl transition-shadow relative border border-white/60 bg-white/40">
+                            <p class="font-bold text-gray-800 text-lg">19:00 - 19:30</p>
+                            <p class="text-gray-600">เปิดตัวเจ้าบ่าว-เจ้าสาว และพิธีแลกแหวน</p>
+                        </div>
                     </div>
                 </div>
-                 <!-- Timeline Item -->
-                <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                    <div class="order-1 md:w-5/12"></div>
-                    <div class="z-10 flex items-center order-1 bg-[#D4E7E1] shadow-xl w-12 h-12 rounded-full">
-                        <h3 class="mx-auto font-semibold text-lg text-white">5</h3>
+                
+                 <!-- Timeline 4 -->
+                 <div class="mb-8 flex md:flex-row-reverse md:justify-between items-center w-full">
+                    <div class="hidden md:block md:w-5/12"></div>
+                    <div class="z-10 absolute left-6 md:static md:left-auto transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-12 h-12 bg-[#FDE4CF]/90 backdrop-blur-sm ring-4 ring-white/70 shadow-lg rounded-full shrink-0">
+                        <span class="font-bold text-white text-shadow-sm">4</span>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4">
-                        <p class="font-bold text-gray-800">21:30</p>
-                        <p class="text-sm text-gray-600">After Party</p>
+                    <div class="w-full md:w-5/12 pl-14 md:pl-0">
+                        <div class="glass-panel p-4 hover:shadow-xl transition-shadow md:text-right border border-white/60 bg-white/40">
+                            <p class="font-bold text-gray-800 text-lg">19:45 - 21:00</p>
+                            <p class="text-gray-600">รินอิตาเลี่ยนโซดา, พิธีโยนดอกไม้ และกิจกรรม</p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Timeline 5 -->
+                <div class="mb-8 flex md:justify-between items-center w-full">
+                    <div class="hidden md:block md:w-5/12"></div>
+                    <div class="z-10 absolute left-6 md:static md:left-auto transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-12 h-12 bg-[#D4E7E1]/90 backdrop-blur-sm ring-4 ring-white/70 shadow-lg rounded-full shrink-0">
+                        <span class="font-bold text-white text-shadow-sm">5</span>
+                    </div>
+                    <div class="w-full md:w-5/12 pl-14 md:pl-0">
+                        <div class="glass-panel p-4 hover:shadow-xl transition-shadow relative border border-white/60 bg-white/40">
+                            <p class="font-bold text-gray-800 text-lg">21:30</p>
+                            <p class="text-gray-600">After Party</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Picture gallery panel 3 (แนวตั้ง 4 รูป) -->
-        <section class="fade-in">
+        <!-- Gallery Mix -->
+        <section class="fade-in glass-panel !bg-transparent !border-0 !shadow-none !backdrop-filter-none">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-center">
-                 <!-- GALLERY 3: แก้ไข URL รูปภาพทั้ง 4 รูป -->
-                <img src="gallery\DSC04966.jpg" alt="Gallery Photo 3.1" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
-                <img src="gallery\DSC04958.jpg" alt="Gallery Photo 3.2" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[2deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
-                <img src="gallery\DSC04963.jpg" alt="Gallery Photo 3.3" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[-2deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
-                <img src="gallery\DSC04973.jpg" alt="Gallery Photo 3.4" class="w-full h-auto object-cover rounded-lg shadow-lg transform rotate-[3deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
+                <img src="gallery/DSC04966.jpg" alt="Gallery Photo" class="w-full h-auto object-cover rounded-2xl shadow-lg transform rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/80">
+                <img src="gallery/DSC04958.jpg" alt="Gallery Photo" class="w-full h-auto object-cover rounded-2xl shadow-lg transform rotate-[2deg] hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/80">
+                <img src="gallery/DSC04963.jpg" alt="Gallery Photo" class="w-full h-auto object-cover rounded-2xl shadow-lg transform rotate-[-2deg] hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/80">
+                <img src="gallery/DSC04973.jpg" alt="Gallery Photo" class="w-full h-auto object-cover rounded-2xl shadow-lg transform rotate-[3deg] hover:rotate-0 hover:scale-105 transition-all duration-300 border-4 border-white/80">
             </div>
         </section>
 
         <!-- RSVP -->
-        <section class="text-center fade-in">
-             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-rose-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-                RSVP
-            </h2>
-            <p class="mb-6">กรุณาตอบกลับการเข้าร่วมงานภายในวันที่ 31 ธันวาคม 2568<br>เพื่อที่เราจะได้เตรียมการต้อนรับทุกท่านอย่างดีที่สุด</p>
-            <button id="openRsvpModal" class="inline-block bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-colors duration-300 transform hover:scale-105">
+        <section id="rsvp" class="text-center fade-in glass-panel">
+            <!-- Glass Icon: Envelope -->
+            <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#D98BA0]" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+            </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">RSVP</h2>
+            <p class="mb-8 text-gray-700">กรุณาตอบกลับการเข้าร่วมงานภายในวันที่ 31 ธันวาคม 2568<br>เพื่อที่เราจะได้เตรียมการต้อนรับทุกท่านอย่างดีที่สุด</p>
+            
+            <a href="https://kanoksakchanprasert.github.io/wedding-invitation/wedding-rsvp" class="inline-block bg-[#D98BA0]/90 text-white font-semibold py-4 px-10 rounded-full hover:bg-[#C77C8F] transition-all duration-300 transform hover:scale-105 shadow-xl ring-4 ring-[#D98BA0]/20 backdrop-blur-md">
                 ตอบกลับการเข้าร่วมงาน
-            </button>
+            </a>
         </section>
 
-        <!-- Picture gallery panel 4 (Slider) -->
-        <section class="fade-in p-0 md:p-0 bg-transparent backdrop-filter-none">
-            <div class="relative shadow-xl rounded-2xl overflow-hidden">
-                <!-- Scrollable Container -->
+        <!-- Wedding Bingo (NEW) -->
+        <section id="bingo" class="text-center fade-in glass-panel">
+            <!-- Glass Icon: Grid/Game -->
+            <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#cce4de]" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+            </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">Wedding Bingo</h2>
+            <p class="mb-8 text-gray-700">มาร่วมสนุกกับกิจกรรมบิงโกในงานของเรา<br>ลุ้นรับของรางวัลสุดพิเศษ!</p>
+            
+            <a href="https://kanoksakchanprasert.github.io/wedding-invitation/wedding-bingo" class="inline-block bg-[#6A8B82]/90 text-white font-semibold py-4 px-10 rounded-full hover:bg-[#59786F] transition-all duration-300 transform hover:scale-105 shadow-xl ring-4 ring-[#6A8B82]/20 backdrop-blur-md">
+                เล่นเกม Bingo
+            </a>
+        </section>
+
+        <!-- Digital Guestbook (NEW) -->
+        <section id="guestbook" class="text-center fade-in glass-panel">
+             <!-- Glass Icon: Pencil/Book -->
+             <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#FDE4CF]" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+             </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">Digital Guestbook</h2>
+            <p class="mb-8 text-gray-700">เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในการเติมเต็มความสุขให้กับเรา<br>ร่วมอวยพรให้เราทั้งคู่ได้ที่นี่</p>
+            
+            <a href="https://guest.manitawedding.com/g/35aohp-1761624047925x934495910386466800" class="inline-block bg-[#FDE4CF]/90 text-[#8e6b48] font-semibold py-4 px-10 rounded-full hover:bg-[#edd3bc] transition-all duration-300 transform hover:scale-105 shadow-xl ring-4 ring-[#FDE4CF]/20 backdrop-blur-md">
+                เขียนคำอวยพรดิจิตอล
+            </a>
+        </section>
+
+         <!-- Honeymoon Fund (Renamed from Wedding Gift) -->
+        <section id="gift" class="text-center fade-in glass-panel">
+             <!-- Glass Icon: Gift/Plane -->
+             <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#83A9C0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">Honeymoon Fund</h2>
+            <p class="mb-6 text-gray-700">
+                สำหรับแขกผู้มีเกียรติที่ประสงค์จะร่วมอวยพรคู่บ่าวสาว<br>
+                และสนับสนุนการเดินทางเริ่มต้นชีวิตคู่ของเรา
+            </p>
+            
+            <a href="https://kanoksakchanprasert.github.io/wedding-invitation/wedding-gift" class="inline-block bg-[#83A9C0]/90 text-white font-semibold py-4 px-10 rounded-full hover:bg-[#6D91A6] transition-all duration-300 transform hover:scale-105 shadow-xl ring-4 ring-[#83A9C0]/20 backdrop-blur-md">
+                ส่งของขวัญและคำอวยพร
+            </a>
+        </section>
+
+        <!-- Gallery Panel 4 (Moved to be below Honeymoon Fund) -->
+        <section class="fade-in p-0 md:p-0 bg-transparent border-0 shadow-none backdrop-filter-none !bg-transparent !backdrop-blur-0 !box-shadow-none">
+            <div class="relative shadow-2xl rounded-3xl overflow-hidden border-4 border-white/60">
                 <div id="gallery4-container" class="slider-container flex overflow-x-scroll snap-x snap-mandatory">
-                    <!-- GALLERY 4: แก้ไข URL รูปภาพทั้ง 5 รูป -->
-                    <!-- Slide 1 -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery\DSC04765.jpg" alt="Gallery Photo 4.1" class="w-full h-full object-cover">
+                        <img src="gallery/DSC04765.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
-                    <!-- Slide 2 -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery\DSC05820.jpg" alt="Gallery Photo 4.2" class="w-full h-full object-cover">
+                        <img src="gallery/DSC05820.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
-                    <!-- Slide 3 -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                        <img src="gallery\DSC05888.jpg" alt="Gallery Photo 4.3" class="w-full h-full object-cover">
+                        <img src="gallery/DSC05888.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
-                    <!-- Slide 4 -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                         <img src="gallery\DSC04856.jpg" alt="Gallery Photo 4.4" class="w-full h-full object-cover">
+                         <img src="gallery/DSC04856.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
-                    <!-- Slide 5 -->
                     <div class="slide flex-shrink-0 w-full snap-center aspect-w-16 aspect-h-9">
-                         <img src="gallery\DSC05962.jpg" alt="Gallery Photo 4.5" class="w-full h-full object-cover">
+                         <img src="gallery/DSC05962.jpg" alt="Gallery Photo" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <!-- Navigation Buttons -->
-                <button id="gallery4-prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                <!-- Navigation -->
+                <button id="gallery4-prev" class="absolute z-20 top-1/2 left-4 transform -translate-y-1/2 glass-panel !p-3 !rounded-full hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button id="gallery4-next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/60 text-gray-800 rounded-full p-2 hover:bg-white transition-all duration-300 backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                <button id="gallery4-next" class="absolute z-20 top-1/2 right-4 transform -translate-y-1/2 glass-panel !p-3 !rounded-full hover:scale-110 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
             </div>
-        </section>
-
-         <!-- NEW: Wedding Gift -->
-        <section class="text-center fade-in">
-             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4H5z" />
-                </svg>
-                Wedding Gift
-            </h2>
-            <p class="mb-6">
-                สำหรับแขกผู้มีเกียรติที่ประสงค์จะร่วมอวยพรคู่บ่าวสาว<br>
-                สามารถส่งคำอวยพรและของขวัญได้ที่นี่
-            </p>
-            <!-- แก้ไขรูป QR Code ของคุณที่นี่ -->
-            <div class="flex justify-center mb-6">
-                <img src="https://placehold.co/250x250/FFFFFF/333333?text=QR+Code" alt="QR Code" class="rounded-lg shadow-md border-4 border-white">
-            </div>
-            <button id="openGiftingModal" class="inline-block bg-[#6A8B82] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#59786F] transition-colors duration-300 transform hover:scale-105">
-                แจ้งการโอนและส่งคำอวยพร
-            </button>
         </section>
 
          <!-- Contact -->
-        <section class="text-center fade-in">
-             <h2 class="font-display text-4xl md:text-5xl mb-4 flex items-center justify-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>
-                Contact
-            </h2>
-            <p>หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อได้ที่</p>
-            <p class="mt-2 font-semibold">TBC (เบอร์ติดต่อ)</p>
+        <section class="text-center fade-in glass-panel">
+             <!-- Glass Icon: Phone/Chat -->
+             <div class="flat-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flat-icon text-[#d9cce6]" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+             </div>
+            <h2 class="font-display text-4xl md:text-5xl mb-4 text-glass-dark">Contact</h2>
+            <p class="text-gray-700 mb-6">หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อได้ที่</p>
+            
+            <div class="flex flex-col gap-6 md:gap-8">
+                <!-- Contact 1 -->
+                <div class="flex flex-col items-center">
+                    <p class="font-semibold text-lg text-gray-800">กนกศักดิ์ จันทร์ประเสริฐ (กบ)</p>
+                    <a href="tel:0833214420" class="inline-flex items-center gap-2 mt-1 text-[#5d8aa6] hover:text-[#4a6e85] transition-colors bg-white/40 px-4 py-2 rounded-full border border-white/60 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                        <span>083-321-4420</span>
+                    </a>
+                </div>
+
+                <!-- Contact 2 -->
+                <div class="flex flex-col items-center">
+                    <p class="font-semibold text-lg text-gray-800">วิภา อรรถศิริปัญญา (หญิง)</p>
+                    <a href="tel:0891320646" class="inline-flex items-center gap-2 mt-1 text-[#c46982] hover:text-[#9d5468] transition-colors bg-white/40 px-4 py-2 rounded-full border border-white/60 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                        <span>089-132-0646</span>
+                    </a>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- RSVP Modal -->
-    <div id="rsvpModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
-        <div id="modalContent" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 md:p-8 relative transform transition-all scale-95 opacity-0">
-            <button id="closeRsvpModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            
-            <!-- Form -->
-            <form id="rsvpForm">
-                <h2 class="font-display text-3xl mb-6 text-center">RSVP Form</h2>
-                <!-- Question 1: Name -->
-                <div class="mb-4">
-                    <label for="fullName" class="block text-gray-700 font-semibold mb-2">ชื่อ-นามสกุล ผู้มาร่วมงาน *</label>
-                    <input type="text" id="fullName" name="fullName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]" required>
-                </div>
-                <!-- Question 2: Attendance -->
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold mb-2">ท่านสามารถเข้าร่วมงานเลี้ยงของเราได้หรือไม่? *</label>
-                    <div class="flex flex-wrap gap-x-4 gap-y-2">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="attendance" value="เข้าร่วม" class="mr-2" required> เข้าร่วม
-                        </label>
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="attendance" value="ไม่สามารถเข้าร่วมได้" class="mr-2"> ไม่สามารถเข้าร่วมได้
-                        </label>
-                    </div>
-                </div>
-                <!-- Conditional Questions Wrapper -->
-                <div id="conditionalQuestions" class="hidden space-y-4">
-                    <!-- Question 3: Guest Count -->
-                    <div class="mb-4">
-                        <label for="guestCount" class="block text-gray-700 font-semibold mb-2">จำนวนผู้เข้าร่วมทั้งหมด (รวมตัวท่านเอง)</label>
-                        <select id="guestCount" name="guestCount" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <!-- Question 4: Dietary -->
-                    <div class="mb-4">
-                        <label for="dietary" class="block text-gray-700 font-semibold mb-2">มีข้อจำกัดด้านอาหาร/แพ้อาหารหรือไม่? (ถ้ามี โปรดระบุ)</label>
-                        <input type="text" id="dietary" name="dietary" placeholder="เช่น แพ้อาหารทะเล, ทานมังสวิรัติ" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]">
-                    </div>
-                </div>
-                <!-- Additional Question: Wishes -->
-                <div class="mb-6">
-                    <label for="wishes" class="block text-gray-700 font-semibold mb-2">คำอวยพรสำหรับคู่บ่าวสาว</label>
-                    <textarea id="wishes" name="wishes" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]"></textarea>
-                </div>
-                <!-- Submit Button -->
-                <button type="submit" id="submitRsvp" class="w-full bg-[#D98BA0] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#C77C8F] transition-all duration-300 flex items-center justify-center disabled:opacity-50">
-                    <span id="submitText">ส่งคำตอบ</span>
-                    <svg id="submitSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </button>
-            </form>
-             <!-- Success Message -->
-            <div id="successMessage" class="hidden text-center p-6">
-                <h3 class="font-display text-3xl mb-2 text-green-600">ขอบคุณ!</h3>
-                <p class="text-gray-700">เราได้รับคำตอบของคุณเรียบร้อยแล้วค่ะ</p>
-                <button id="closeSuccess" class="mt-6 bg-[#D98BA0] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#C77C8F]">ปิด</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NEW: Gifting Modal -->
-    <div id="giftingModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4">
-        <div id="giftingModalContent" class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 md:p-8 relative transform transition-all scale-95 opacity-0">
-            <button id="closeGiftingModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            
-            <!-- Form -->
-            <form id="giftingForm">
-                <h2 class="font-display text-3xl mb-6 text-center">Send Your Love</h2>
-                
-                <!-- Sender Name -->
-                <div class="mb-4">
-                    <label for="fullNameGift" class="block text-gray-700 font-semibold mb-2">ชื่อ-นามสกุล ผู้โอน *</label>
-                    <input type="text" id="fullNameGift" name="fullNameGift" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]" required>
-                </div>
-                
-                <!-- Guest Side -->
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold mb-2">แขกฝั่ง *</label>
-                    <div class="flex flex-wrap gap-x-4 gap-y-2">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="guestSide" value="เจ้าบ่าว" class="mr-2" required> แขกฝั่งเจ้าบ่าว
-                        </label>
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="guestSide" value="เจ้าสาว" class="mr-2"> แขกฝั่งเจ้าสาว
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Slip Upload -->
-                <div class="mb-4">
-                    <label for="slipUpload" class="block text-gray-700 font-semibold mb-2">อัปโหลดสลิป (ถ้ามี)</label>
-                    <input type="file" id="slipUpload" name="slipUpload" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E3D7F1] file:text-[#5D5D5D] hover:file:bg-[#d9cce6]" accept="image/*">
-                    <!-- Slip Preview -->
-                    <img id="slipPreview" src="" alt="Slip Preview" class="hidden w-1/2 mx-auto mt-4 rounded-lg shadow-sm"/>
-                </div>
-
-                <!-- Wishes -->
-                <div class="mb-6">
-                    <label for="wishesGift" class="block text-gray-700 font-semibold mb-2">คำอวยพร</label>
-                    <textarea id="wishesGift" name="wishesGift" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E3D7F1]"></textarea>
-                </div>
-                
-                <!-- Submit Button -->
-                <button type="submit" id="submitGiftingForm" class="w-full bg-[#6A8B82] text-white font-semibold py-3 px-8 rounded-full hover:bg-[#59786F] transition-all duration-300 flex items-center justify-center disabled:opacity-50">
-                    <span id="submitGiftingText">ส่งคำอวยพร</span>
-                    <svg id="submitGiftingSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </button>
-            </form>
-             <!-- Success Message -->
-            <div id="giftingSuccessMessage" class="hidden text-center p-6">
-                <h3 class="font-display text-3xl mb-2 text-green-600">ขอบคุณ!</h3>
-                <p class="text-gray-700">เราได้รับคำอวยพรของคุณแล้วค่ะ</p>
-                <button id="closeGiftingSuccess" class="mt-6 bg-[#D98BA0] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#C77C8F]">ปิด</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="text-center py-10 bg-gray-100">
-        <p class="font-display text-3xl">Thank You</p>
-        <p class="mt-2">หวังว่าจะได้พบกันในวันงานนะคะ</p>
-        <p class="font-display text-2xl mt-4">Kob & Ying</p>
+    <footer class="text-center py-10 bg-white/20 backdrop-blur-sm pb-28 border-t border-white/20">
+        <p class="font-display text-3xl text-gray-700">Thank You</p>
+        <p class="mt-2 text-gray-600">หวังว่าจะได้พบกันในวันงานนะคะ</p>
+        <p class="font-display text-2xl mt-4 text-[#D98BA0]">Kob & Ying</p>
     </footer>
 
     <script>
-        // Countdown Timer Logic
-        // The wedding date is January 17, 2569 B.E. which is 2026 C.E.
+        // Countdown Timer
         const weddingDate = new Date("Jan 17, 2026 17:00:00").getTime();
 
         const countdownFunction = setInterval(function() {
@@ -531,266 +602,44 @@
             document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
         }, 1000);
 
-        // Fade-in animation on scroll
+        // Fade-in animation
         const fadeInElements = document.querySelectorAll('.fade-in');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, {
-            threshold: 0.1
-        });
+        }, { threshold: 0.1 });
 
-        fadeInElements.forEach(el => {
-            observer.observe(el);
-        });
+        fadeInElements.forEach(el => observer.observe(el));
 
-        // Special observer for hero content to fade in on load
+        // Hero content special fade in
         const heroContent = document.getElementById('hero-content');
-        setTimeout(() => {
-            heroContent.classList.add('visible');
-        }, 300);
-        
-        // RSVP Modal Logic
-        const openRsvpBtn = document.getElementById('openRsvpModal');
-        const closeRsvpBtn = document.getElementById('closeRsvpModal');
-        const rsvpModal = document.getElementById('rsvpModal');
-        const modalContent = document.getElementById('modalContent');
-        const rsvpForm = document.getElementById('rsvpForm');
-        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
-        const conditionalQuestions = document.getElementById('conditionalQuestions');
-        const submitBtn = document.getElementById('submitRsvp');
-        const submitText = document.getElementById('submitText');
-        const submitSpinner = document.getElementById('submitSpinner');
-        const successMessage = document.getElementById('successMessage');
-        const closeSuccessBtn = document.getElementById('closeSuccess');
+        if(heroContent) {
+            setTimeout(() => heroContent.classList.add('visible'), 300);
+        }
 
+        // Gallery Sliders Logic
+        function setupSlider(containerId, prevBtnId, nextBtnId) {
+            const container = document.getElementById(containerId);
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
 
-        const openModal = () => {
-            rsvpModal.classList.remove('hidden');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        };
-
-        const closeModal = () => {
-            modalContent.classList.add('scale-95', 'opacity-0');
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            setTimeout(() => {
-                rsvpModal.classList.add('hidden');
-                // Reset form for next time
-                rsvpForm.reset();
-                conditionalQuestions.classList.add('hidden');
-                successMessage.classList.add('hidden');
-                rsvpForm.style.display = 'block';
-            }, 300);
-        };
-
-        openRsvpBtn.addEventListener('click', openModal);
-        closeRsvpBtn.addEventListener('click', closeModal);
-        closeSuccessBtn.addEventListener('click', closeModal);
-        rsvpModal.addEventListener('click', (e) => {
-            if (e.target === rsvpModal) {
-                closeModal();
-            }
-        });
-
-        attendanceRadios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                if (radio.value === 'เข้าร่วม' && radio.checked) {
-                    conditionalQuestions.classList.remove('hidden');
-                } else {
-                    conditionalQuestions.classList.add('hidden');
-                }
-            });
-        });
-
-        rsvpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            submitText.classList.add('hidden');
-            submitSpinner.classList.remove('hidden');
-            submitBtn.disabled = true;
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzkR026rxBVH9hwm_lcJOHRmvzAzmRh6NPxfEia2Kxyccc-q8muPNjZzz2wg72dz7YF/exec';
-            const formData = new FormData(rsvpForm);
-
-            fetch(scriptURL, { method: 'POST', body: formData})
-                .then(response => {
-                    if (response.ok) {
-                        rsvpForm.style.display = 'none';
-                        successMessage.classList.remove('hidden');
-                    } else {
-                         throw new Error('Submission failed!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
-                })
-                .finally(() => {
-                    submitText.classList.remove('hidden');
-                    submitSpinner.classList.add('hidden');
-                    submitBtn.disabled = false;
+            if (container && prevBtn && nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    const slideWidth = container.querySelector('.slide').clientWidth;
+                    container.scrollLeft += slideWidth;
                 });
-        });
-        
-        // Gallery 4 Slider Logic
-        const galleryContainer = document.getElementById('gallery4-container');
-        const prevBtn = document.getElementById('gallery4-prev');
-        const nextBtn = document.getElementById('gallery4-next');
-
-        if (galleryContainer && prevBtn && nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                const slideWidth = galleryContainer.querySelector('.slide').clientWidth;
-                galleryContainer.scrollLeft += slideWidth;
-            });
-
-            prevBtn.addEventListener('click', () => {
-                const slideWidth = galleryContainer.querySelector('.slide').clientWidth;
-                galleryContainer.scrollLeft -= slideWidth;
-            });
-        }
-        
-        // Gallery 2 Slider Logic
-        const gallery2Container = document.getElementById('gallery2-container');
-        const prev2Btn = document.getElementById('gallery2-prev');
-        const next2Btn = document.getElementById('gallery2-next');
-
-        if (gallery2Container && prev2Btn && next2Btn) {
-            next2Btn.addEventListener('click', () => {
-                const slideWidth = gallery2Container.querySelector('.slide').clientWidth;
-                gallery2Container.scrollLeft += slideWidth;
-            });
-
-            prev2Btn.addEventListener('click', () => {
-                const slideWidth = gallery2Container.querySelector('.slide').clientWidth;
-                gallery2Container.scrollLeft -= slideWidth;
-            });
+                prevBtn.addEventListener('click', () => {
+                    const slideWidth = container.querySelector('.slide').clientWidth;
+                    container.scrollLeft -= slideWidth;
+                });
+            }
         }
 
-        // --- NEW: Gifting Modal Logic ---
-        const openGiftingBtn = document.getElementById('openGiftingModal');
-        const closeGiftingBtn = document.getElementById('closeGiftingModal');
-        const giftingModal = document.getElementById('giftingModal');
-        const giftingModalContent = document.getElementById('giftingModalContent');
-        const giftingForm = document.getElementById('giftingForm');
-        const submitGiftingBtn = document.getElementById('submitGiftingForm');
-        const submitGiftingText = document.getElementById('submitGiftingText');
-        const submitGiftingSpinner = document.getElementById('submitGiftingSpinner');
-        const giftingSuccessMessage = document.getElementById('giftingSuccessMessage');
-        const closeGiftingSuccessBtn = document.getElementById('closeGiftingSuccess');
-        const slipUpload = document.getElementById('slipUpload');
-        const slipPreview = document.getElementById('slipPreview');
-
-        const openGiftingModal = () => {
-            giftingModal.classList.remove('hidden');
-            setTimeout(() => {
-                giftingModalContent.classList.remove('scale-95', 'opacity-0');
-                giftingModalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        };
-
-        const closeGiftingModal = () => {
-            giftingModalContent.classList.add('scale-95', 'opacity-0');
-            giftingModalContent.classList.remove('scale-100', 'opacity-100');
-            setTimeout(() => {
-                giftingModal.classList.add('hidden');
-                // Reset form
-                giftingForm.reset();
-                slipPreview.classList.add('hidden');
-                giftingSuccessMessage.classList.add('hidden');
-                giftingForm.style.display = 'block';
-            }, 300);
-        };
-
-        if(openGiftingBtn) {
-            openGiftingBtn.addEventListener('click', openGiftingModal);
-        }
-        if(closeGiftingBtn) {
-            closeGiftingBtn.addEventListener('click', closeGiftingModal);
-        }
-        if(closeGiftingSuccessBtn) {
-            closeGiftingSuccessBtn.addEventListener('click', closeGiftingModal);
-        }
-        if(giftingModal) {
-            giftingModal.addEventListener('click', (e) => {
-                if (e.target === giftingModal) {
-                    closeGiftingModal();
-                }
-            });
-        }
-        
-        // Slip preview
-        if(slipUpload) {
-            slipUpload.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        slipPreview.src = event.target.result;
-                        slipPreview.classList.remove('hidden');
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    slipPreview.classList.add('hidden');
-                }
-            });
-        }
-
-        if(giftingForm) {
-            giftingForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                submitGiftingText.classList.add('hidden');
-                submitGiftingSpinner.classList.remove('hidden');
-                submitGiftingBtn.disabled = true;
-
-                // --- TODO: ข้อควรทราบ ---
-                // 1. คุณต้องสร้าง Google Apps Script ใหม่สำหรับฟอร์ม "Gifting" นี้โดยเฉพาะ
-                //    (เนื่องจากช่องข้อมูลไม่เหมือนกับฟอร์ม RSVP)
-                // 2. นำ URL ของ Script ใหม่มาใส่แทนที่ 'YOUR_NEW_GIFTING_SCRIPT_URL'
-                // 3. การส่ง "ไฟล์" (สลิป) ไปยัง Google Script ต้องใช้เทคนิคแปลงไฟล์เป็น Base64
-                //    ซึ่งซับซ้อนกว่าการส่งข้อความธรรมดา
-                // 4. โค้ดด้านล่างนี้เป็นการ *จำลอง* ว่าส่งสำเร็จ (แสดงหน้า Success)
-                //    เพื่อให้คุณทดสอบการทำงานของ Modal ได้ก่อน
-                
-                /* // --- ตัวอย่างโค้ดจริง (เมื่อได้ URL แล้ว) ---
-                // const scriptURL = 'YOUR_NEW_GIFTING_SCRIPT_URL'; 
-                // const formData = new FormData(giftingForm);
-                //
-                // // **หมายเหตุ:** การส่งไฟล์ (สลิป) ต้องใช้โค้ดเพิ่มเติมในการแปลงไฟล์
-                //
-                // fetch(scriptURL, { method: 'POST', body: formData})
-                //     .then(response => {
-                //         giftingForm.style.display = 'none';
-                //         giftingSuccessMessage.classList.remove('hidden');
-                //     })
-                //     .catch(error => alert('เกิดข้อผิดพลาด!'))
-                //     .finally(() => {
-                //         submitGiftingText.classList.remove('hidden');
-                //         submitGiftingSpinner.classList.add('hidden');
-                //         submitGiftingBtn.disabled = false;
-                //     })
-                */
-                
-                // จำลองการส่ง (ลบส่วนนี้ออกเมื่อใช้โค้ดจริง)
-                setTimeout(() => {
-                    giftingForm.style.display = 'none';
-                    giftingSuccessMessage.classList.remove('hidden');
-                    
-                    submitGiftingText.classList.remove('hidden');
-                    submitGiftingSpinner.classList.add('hidden');
-                    submitGiftingBtn.disabled = false;
-                }, 1000); // 1 วินาที
-            });
-        }
-
+        setupSlider('gallery2-container', 'gallery2-prev', 'gallery2-next');
+        setupSlider('gallery4-container', 'gallery4-prev', 'gallery4-next');
     </script>
 </body>
 </html>
-
