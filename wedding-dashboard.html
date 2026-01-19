@@ -74,11 +74,11 @@
             <h1 class="text-3xl font-bold text-slate-800">Wedding Dashboard</h1>
             <p class="text-slate-500">ข้อมูลซองและของขวัญ (17 Jan 2026)</p>
             <div id="demo-alert" class="hidden bg-yellow-50 text-yellow-800 px-4 py-2 rounded-lg text-sm inline-block border border-yellow-200">
-                ⚠️ กำลังแสดงข้อมูลจำลอง (Demo Mode) - ไม่สามารถเชื่อมต่อ Google Sheet ได้
+                ⚠️ กำลังแสดงข้อมูลจำลอง (Demo Mode) - กรุณาเชื่อมต่อ Google Sheet
             </div>
         </div>
 
-        <!-- Stats Cards -->
+        <!-- Stats Cards (Public View) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Total -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4 bg-gradient-to-br from-rose-50 to-white border-rose-100 text-rose-600">
@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <!-- Charts Sections -->
+        <!-- Charts Sections (Public View) -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- By Relation -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <!-- Table Section -->
+        <!-- Table Section (Protected View) -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
             <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
                 <h3 class="font-bold text-lg text-slate-800">รายการทั้งหมด (<span id="count-total">0</span>)</h3>
@@ -140,7 +140,7 @@
                 <h4 class="text-lg font-medium text-slate-800">กรุณาใส่รหัสผ่านเพื่อดูรายละเอียดและแก้ไข</h4>
                 <form onsubmit="app.login(event)" class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full max-w-sm">
                     <input type="password" id="password-input" placeholder="Password" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
-                    <button type="submit" class="px-6 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-900 font-medium">Unlock</button>
+                    <button type="submit" id="btn-login" class="px-6 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-900 font-medium whitespace-nowrap">Unlock</button>
                 </form>
                 <p id="login-error" class="text-red-500 text-sm hidden">รหัสผ่านไม่ถูกต้อง</p>
             </div>
@@ -250,42 +250,34 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Default URL Hardcoded here
-        const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbx3UR9WBXey7QyQehlyvp8x6ZKeJ_s7F9RhrbgJHnbNUBsrnj7OhT4xrYJOKhCNa4wkjg/exec";
+        const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbzalYJw2mCjQagzR14qOw6gqQa7W2dPfNJckckPF49gICxbgsC1xjQ_yGTws7QEG83bVg/exec";
 
         const MOCK_DATA = [
-            { row: 2, name: "สมชาย ใจดี", side: "เจ้าบ่าว", relation: "เพื่อนเจ้าบ่าว", channel: "QR", amount: 1000, gift: true, notes: "ยินดีด้วยนะ" },
-            { row: 3, name: "สมหญิง รักจริง", side: "เจ้าสาว", relation: "ญาติเจ้าสาว", channel: "Cash", amount: 2000, gift: true, notes: "ให้กล่องของขวัญเพิ่ม" },
-            { row: 4, name: "John Doe", side: "เจ้าบ่าว", relation: "เพื่อนเจ้าบ่าว", channel: "QR", amount: 500, gift: false, notes: "Congrats!" },
+            { row: 2, name: "🔒 Protected", side: "เจ้าบ่าว", relation: "เพื่อนเจ้าบ่าว", channel: "QR", amount: 1000, gift: false, notes: "" },
+            { row: 3, name: "🔒 Protected", side: "เจ้าสาว", relation: "ญาติเจ้าสาว", channel: "Cash", amount: 2000, gift: false, notes: "" },
+            { row: 4, name: "🔒 Protected", side: "เจ้าบ่าว", relation: "เพื่อนเจ้าบ่าว", channel: "QR", amount: 500, gift: false, notes: "" },
         ];
 
         const app = {
             data: [],
             apiUrl: "",
+            sessionPassword: "", // Store password in memory only
             isAuthenticated: false,
 
             init() {
-                // Initialize Lucide Icons
                 lucide.createIcons();
                 
-                // Logic: Check LocalStorage first, if not found use DEFAULT_API_URL
                 const storedUrl = localStorage.getItem('wedding_dashboard_api_url');
                 
                 if (storedUrl) {
                     this.apiUrl = storedUrl;
                     document.getElementById('api-url-input').value = storedUrl;
-                    console.log("Using Stored URL");
-                    this.fetchData();
+                    this.fetchData(); // Fetch public data first
                 } else if (DEFAULT_API_URL) {
                     this.apiUrl = DEFAULT_API_URL;
-                    // Note: We don't fill the input with Default URL to keep it clean, 
-                    // or we can fill it to show user what's being used. Let's keep input empty unless user overrides.
-                    // But we can show placeholder text.
                     document.getElementById('api-url-input').placeholder = "Using Default Hardcoded URL...";
-                    console.log("Using Default Hardcoded URL");
-                    this.fetchData();
+                    this.fetchData(); // Fetch public data first
                 } else {
-                    // No URL at all -> Demo Mode
                     document.getElementById('demo-alert').classList.remove('hidden');
                     this.data = MOCK_DATA;
                     this.renderAll();
@@ -304,7 +296,6 @@
                     this.toggleSettings();
                     this.fetchData();
                 } else {
-                    // If user clears input and saves, revert to default
                     localStorage.removeItem('wedding_dashboard_api_url');
                     if (DEFAULT_API_URL) {
                         this.apiUrl = DEFAULT_API_URL;
@@ -314,29 +305,45 @@
                 }
             },
 
-            async fetchData() {
+            // Updated fetchData to handle Password
+            async fetchData(password = "") {
                 if (!this.apiUrl) return;
                 
                 const refreshIcon = document.getElementById('refresh-icon');
                 refreshIcon.classList.add('animate-spin');
 
                 try {
-                    const response = await fetch(this.apiUrl);
+                    // Use POST for everything to secure the password in body
+                    const response = await fetch(this.apiUrl, {
+                        method: 'POST',
+                        mode: 'cors', // Changed from no-cors to cors to read response
+                        // Standard fetch to GAS Web App (Exec as Me, Access Anyone) usually supports CORS and returns JSON
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // text/plain avoids OPTIONS preflight
+                        body: JSON.stringify({ 
+                            action: 'get_data', 
+                            password: password 
+                        })
+                    });
+                    
                     const result = await response.json();
                     
                     if (result.status === 'success') {
                         this.data = result.data;
+                        this.isAuthenticated = result.authorized; // Server tells us if authorized
+                        
+                        if (password && result.authorized) {
+                            this.sessionPassword = password; // Remember for updates
+                        }
+
                         document.getElementById('demo-alert').classList.add('hidden');
                         this.renderAll();
                     } else {
-                        alert("Error: " + result.message);
+                        // If specific error
+                         console.error(result.message);
                     }
                 } catch (error) {
                     console.error("Fetch error:", error);
-                    // Don't show alert immediately on page load to avoid annoying users if connection is flaky
-                    // Just show demo data as fallback but keep error in console
                     if(this.data.length === 0) {
-                         // Show subtle error or just stick with empty/mock
                          document.getElementById('demo-alert').textContent = "⚠️ ไม่สามารถเชื่อมต่อ Google Sheet ได้ (กำลังแสดงข้อมูลจำลอง)";
                          document.getElementById('demo-alert').classList.remove('hidden');
                          this.data = MOCK_DATA;
@@ -347,15 +354,25 @@
                 }
             },
 
-            login(e) {
+            async login(e) {
                 e.preventDefault();
-                const pwd = document.getElementById('password-input').value;
-                if (pwd === "Kob&Ying17012026") {
-                    this.isAuthenticated = true;
-                    document.getElementById('login-view').classList.add('hidden');
-                    document.getElementById('table-view').classList.remove('hidden');
-                    document.getElementById('btn-add-new').classList.remove('hidden');
-                    document.getElementById('admin-badge').classList.remove('hidden');
+                const pwdInput = document.getElementById('password-input');
+                const btn = document.getElementById('btn-login');
+                const pwd = pwdInput.value;
+                
+                btn.innerHTML = '<span class="animate-spin rounded-full h-4 w-4 border-b-2 border-white inline-block"></span>';
+                btn.disabled = true;
+
+                // Call API with password
+                await this.fetchData(pwd);
+
+                btn.innerHTML = 'Unlock';
+                btn.disabled = false;
+
+                if (this.isAuthenticated) {
+                    // UI handled by renderAll -> checkAuth
+                    pwdInput.value = '';
+                    document.getElementById('login-error').classList.add('hidden');
                 } else {
                     document.getElementById('login-error').classList.remove('hidden');
                 }
@@ -363,13 +380,25 @@
 
             renderAll() {
                 this.calculateStats();
+                
+                // Toggle Views based on Auth state from Server
+                if (this.isAuthenticated) {
+                    document.getElementById('login-view').classList.add('hidden');
+                    document.getElementById('table-view').classList.remove('hidden');
+                    document.getElementById('btn-add-new').classList.remove('hidden');
+                    document.getElementById('admin-badge').classList.remove('hidden');
+                } else {
+                    document.getElementById('login-view').classList.remove('hidden');
+                    document.getElementById('table-view').classList.add('hidden');
+                    document.getElementById('btn-add-new').classList.add('hidden');
+                    document.getElementById('admin-badge').classList.add('hidden');
+                }
+
                 this.renderTable();
             },
 
             calculateStats() {
-                // Helper to parse amount
                 const getAmt = (d) => Number(d.amount) || 0;
-
                 const total = this.data.reduce((sum, item) => sum + getAmt(item), 0);
                 
                 const brideTotal = this.data
@@ -380,13 +409,11 @@
                     .filter(item => item.side && (item.side.includes("เจ้าบ่าว") || item.side.toLowerCase().includes("groom")))
                     .reduce((sum, item) => sum + getAmt(item), 0);
 
-                // Update DOM
                 document.getElementById('stat-total').textContent = total.toLocaleString();
                 document.getElementById('stat-bride').textContent = brideTotal.toLocaleString();
                 document.getElementById('stat-groom').textContent = groomTotal.toLocaleString();
                 document.getElementById('count-total').textContent = this.data.length;
 
-                // Charts
                 const renderChart = (id, mapObj) => {
                     const container = document.getElementById(id);
                     container.innerHTML = '';
@@ -435,7 +462,6 @@
                     if (item.side?.includes('เจ้าสาว')) badgeClass = 'bg-pink-100 text-pink-700';
                     if (item.side?.includes('เจ้าบ่าว')) badgeClass = 'bg-blue-100 text-blue-700';
 
-                    // Logic to check if gift is received
                     const isGiftReceived = item.gift === true || String(item.gift).toLowerCase() === 'true' || item.gift === 'Received' || (typeof item.gift === 'string' && item.gift.length > 0 && item.gift !== 'FALSE');
 
                     const giftIcon = isGiftReceived 
@@ -535,9 +561,7 @@
                     notes: document.getElementById('form-notes').value
                 };
 
-                // Use current apiUrl (either from storage or default)
                 if (!this.apiUrl) {
-                     // Should not happen if Default is set, but just in case
                     alert("Demo Mode Save");
                     this.closeModal();
                     btn.disabled = false;
@@ -545,20 +569,21 @@
                     return;
                 }
 
-                // Real API
                 try {
+                    // Send password again to authorize update
                     await fetch(this.apiUrl, {
                         method: 'POST',
-                        mode: 'no-cors', 
-                        headers: { 'Content-Type': 'application/json' },
+                        mode: 'cors', // Changed from no-cors to cors to allow error checking
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: formData.row ? 'update' : 'add',
+                            password: this.sessionPassword, // Send cached password
                             data: formData
                         })
                     });
                     
                     setTimeout(() => {
-                        this.fetchData();
+                        this.fetchData(this.sessionPassword); // Reload with password
                         this.closeModal();
                         btn.disabled = false;
                         btn.innerHTML = originalText;
